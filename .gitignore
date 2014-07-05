@@ -1,0 +1,24 @@
+# The Galaxy Programming Language
+# Author: Nicholas E. Manley
+# License: ISC
+
+# IDEs
+nbproject/
+
+# Autofools
+autom4te.cache/
+autoconf/aclocal.m4
+
+# Makefiles
+config.log
+config.status
+Makefile.common
+Makefile.llvm.config
+
+# Build Directories
+Debug/
+Debug+Asserts/
+Profile/
+Profile+Asserts/
+Release/
+Release+Asserts/
