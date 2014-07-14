@@ -1467,7 +1467,7 @@ Optional Features:
   --enable-FEATURE[=ARG]  include FEATURE [ARG=yes]
   --enable-polly          Use polly if available (default is YES)
   --enable-libcpp         Use libc++ if available (default is NO)
-  --enable-cxx11          Use c++11 if available (default is NO)
+  --enable-cxx11          Use c++11 if available (default is YES)
   --enable-optimized      Compile with optimizations enabled (default is NO)
   --enable-profiling      Compile with profiling enabled (default is NO)
   --enable-assertions     Compile with assertion checks enabled (default is
@@ -1481,7 +1481,7 @@ Optional Features:
   --enable-debug-symbols  Build compiler with debug symbols (default is NO if
                           optimization is on and YES if it's off)
   --enable-jit            Enable Just In Time Compiling (default is YES)
-  --enable-docs           Build documents (default is YES)
+  --enable-docs           Build documents (default is NO)
   --enable-doxygen        Build doxygen documentation (default is NO)
   --enable-threads        Use threads if available (default is YES)
   --enable-pthreads       Use pthreads if available (default is YES)
@@ -4819,7 +4819,7 @@ case "$enableval" in
  ;;
   no)  ENABLE_CXX11=0
  ;;
-  default) ENABLE_CXX11=0
+  default) ENABLE_CXX11=1
 ;;
   *) as_fn_error $? "Invalid setting for --enable-cxx11. Use \"yes\" or \"no\"" "$LINENO" 5  ;;
 esac
@@ -4989,7 +4989,7 @@ case "$enableval" in
  ;;
   no)  ENABLE_DOCS=0
  ;;
-  default) ENABLE_DOCS=1
+  default) ENABLE_DOCS=0
  ;;
   *) as_fn_error $? "Invalid setting for --enable-docs. Use \"yes\" or \"no\"" "$LINENO" 5  ;;
 esac

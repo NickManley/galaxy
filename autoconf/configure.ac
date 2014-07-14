@@ -384,12 +384,12 @@ esac
 dnl --enable-cxx11 : check whether or not to use -std=c++11 on the command line
 AC_ARG_ENABLE(cxx11,
               AS_HELP_STRING([--enable-cxx11],
-                             [Use c++11 if available (default is NO)]),,
+                             [Use c++11 if available (default is YES)]),,
                              enableval=default)
 case "$enableval" in
   yes) AC_SUBST(ENABLE_CXX11,[1]) ;;
   no)  AC_SUBST(ENABLE_CXX11,[0]) ;;
-  default) AC_SUBST(ENABLE_CXX11,[0]);;
+  default) AC_SUBST(ENABLE_CXX11,[1]);;
   *) AC_MSG_ERROR([Invalid setting for --enable-cxx11. Use "yes" or "no"]) ;;
 esac
 
@@ -489,12 +489,12 @@ fi
 dnl Allow enablement of building and installing docs
 AC_ARG_ENABLE(docs,
               AS_HELP_STRING([--enable-docs],
-                             [Build documents (default is YES)]),,
+                             [Build documents (default is NO)]),,
                              enableval=default)
 case "$enableval" in
   yes) AC_SUBST(ENABLE_DOCS,[1]) ;;
   no)  AC_SUBST(ENABLE_DOCS,[0]) ;;
-  default) AC_SUBST(ENABLE_DOCS,[1]) ;;
+  default) AC_SUBST(ENABLE_DOCS,[0]) ;;
   *) AC_MSG_ERROR([Invalid setting for --enable-docs. Use "yes" or "no"]) ;;
 esac
 
