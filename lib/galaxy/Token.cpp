@@ -39,6 +39,7 @@ Token::Token(const Token& orig) {
 Token& Token::operator=(const Token& orig) {
     if (this == &orig) { return *this; }
     this->value = orig.value;
+    this->type = orig.type;
     return *this;
 }
     
