@@ -1,4 +1,4 @@
-##===- projects/galaxy/tools/galaxyc/Makefile ---------------*- Makefile -*-===##
+##===- galaxy/tools/galaxyc/Makefile ------------------*- Makefile -*-===##
 
 #
 # Indicate where we are relative to the top of the source tree.
@@ -13,7 +13,7 @@ TOOLNAME=galaxyc
 #
 # List libraries that we'll need
 #
-USEDLIBS = sample.a
+USEDLIBS = galaxy.a
 
 #
 # Include Makefile.common so we know what to do.
