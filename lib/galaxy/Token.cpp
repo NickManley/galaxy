@@ -15,6 +15,7 @@
 //===-----------------------------------------------------------------===//
 
 #include "galaxy/Token.h"
+#include <iostream>
 using namespace Galaxy;
 
 Token::Token(const std::string& value, const TokenType type) {
@@ -42,9 +43,14 @@ Token& Token::operator=(const Token& orig) {
     this->type = orig.type;
     return *this;
 }
-    
+
 Token::~Token() { }
-    
+
+std::ostream& Galaxy::operator<<(std::ostream& out, const Token& token) {
+    return out << "TOKEN(`" << token.value << "`, "
+               << TokenTypeStr.at(token.type) << ")";
+}
+
 const std::string& Token::getValue() const {
     return this->value;
 }

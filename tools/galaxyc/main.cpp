@@ -20,6 +20,6 @@
 
 int main() {
     Galaxy::Token t = Galaxy::Token("0", Galaxy::TokenType::NUMBER);
-    std::cout << t.getValue() << std::endl;
+    std::cout << t << std::endl;
     return 0;
 }

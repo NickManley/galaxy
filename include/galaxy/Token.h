@@ -17,6 +17,7 @@
 #ifndef TOKEN_H
 #define	TOKEN_H
 #include <string>
+#include <map>
 
 namespace Galaxy {
     
@@ -26,6 +27,14 @@ enum class TokenType {
     ERR,        // Error
     BINOP,      // Binary Operator
     NUMBER      // Number
+};
+
+static const std::map<const TokenType, std::string> TokenTypeStr = {
+    { TokenType::EOF, "EOF" },       // End Of File
+    { TokenType::EOL, "EOL" },       // End Of Line
+    { TokenType::ERR, "ERR" },       // Error
+    { TokenType::BINOP, "BINOP" },   // Binary Operator
+    { TokenType::NUMBER, "NUMBER" }  // Number
 };
     
 class Token {
@@ -56,6 +65,10 @@ public:
     /// \brief Destructor.
     virtual ~Token();
     
+    /// \brief Overload stream insertion operator.
+    friend std::ostream& Galaxy::operator<<(
+        std::ostream& out, const Token& token);
+    
     /// \returns the string value of the token.
     const std::string& getValue() const;
     
@@ -64,6 +77,8 @@ public:
     bool isType(TokenType type) const;
     
 };
+
+std::ostream& operator<<(std::ostream& out, const Token& token);
     
 } // END namespace Galaxy
 
