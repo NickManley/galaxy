@@ -17,9 +17,10 @@
 
 #include "galaxy/Token.h"
 #include <iostream>
+using namespace Galaxy;
 
 int main() {
-    Galaxy::Token t = Galaxy::Token("0", Galaxy::TokenType::NUMBER);
+    Token t("0", TokenType::NUMBER);
     std::cout << t << std::endl;
     return 0;
 }

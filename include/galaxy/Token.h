@@ -16,8 +16,8 @@
 
 #ifndef TOKEN_H
 #define	TOKEN_H
-#include <string>
 #include <map>
+#include <string>
 
 namespace Galaxy {
     
@@ -29,7 +29,7 @@ enum class TokenType {
     NUMBER      // Number
 };
 
-static const std::map<const TokenType, std::string> TokenTypeStr = {
+static const std::map<const TokenType, const std::string> TokenTypeStr = {
     { TokenType::EOF, "EOF" },       // End Of File
     { TokenType::EOL, "EOL" },       // End Of Line
     { TokenType::ERR, "ERR" },       // Error
@@ -40,18 +40,18 @@ static const std::map<const TokenType, std::string> TokenTypeStr = {
 class Token {
     
 protected:
-    std::string value;
-    TokenType type;
+    const std::string value;
+    const TokenType type;
     
 public:
     /// \brief Construct a Token from a string.
-    Token(const std::string& value, const TokenType type);
+    explicit Token(const std::string& value, const TokenType type);
     
     /// \brief Construct a Token from a char.
-    Token(const char value, const TokenType type);
+    explicit Token(const char value, const TokenType type);
     
     /// \brief Construct a Token with only the type.
-    Token(const TokenType type);
+    explicit Token(const TokenType type);
     
     /// \brief Copy constructor.
     /// \param[in] orig Original Token.
@@ -72,9 +72,8 @@ public:
     /// \returns the string value of the token.
     const std::string& getValue() const;
     
-    /// \returns true if the token matches the provided type
-    /// otherwise it returns false.
-    bool isType(TokenType type) const;
+    /// \returns the TokenType of the token.
+    const TokenType& getType() const;
     
 };
 

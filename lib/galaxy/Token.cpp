@@ -18,31 +18,17 @@
 #include <iostream>
 using namespace Galaxy;
 
-Token::Token(const std::string& value, const TokenType type) {
-    this->value = value;
-    this->type = type;
-}
+Token::Token(const std::string& value, const TokenType type)
+        : value(value), type(type) { }
 
-Token::Token(const char value, const TokenType type) {
-    this->value = std::string(1, value);
-    this->type = type;
-}
+Token::Token(const char value, const TokenType type)
+        : value(std::string(1, value)), type(type) { }
 
-Token::Token(const TokenType type) {
-    this->type = type;
-}
+Token::Token(const TokenType type)
+        : type(type) { }
 
-Token::Token(const Token& orig) {
-    this->value = orig.value;
-    this->type = orig.type;
-}
-
-Token& Token::operator=(const Token& orig) {
-    if (this == &orig) { return *this; }
-    this->value = orig.value;
-    this->type = orig.type;
-    return *this;
-}
+Token::Token(const Token& orig)
+        : value(orig.value), type(orig.type) { }
 
 Token::~Token() { }
 
@@ -55,6 +41,6 @@ const std::string& Token::getValue() const {
     return this->value;
 }
     
-bool Token::isType(TokenType type) const {
-    return this->type == type;
+const TokenType& Token::getType() const {
+    return this->type;
 }
