@@ -51,7 +51,7 @@ Token Lexer::peekAhead() {
 Token Lexer::lexToken() {
     lexToken_start:
     if (idx >= len) {
-        return Token(TokenType::EOF);
+        return Token(TokenType::END_FILE);
     }
     if (Lexer::isWhitespace(src[idx])) {
         idx++;
