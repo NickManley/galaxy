@@ -26,7 +26,7 @@ int main() {
         std::getline(std::cin, input);
         if (input == "exit") { break; }
         Lexer lexer(input);
-        while (lexer.peek().getType() != TokenType::EOF) {
+        while (lexer.peek().getType() != TokenType::END_FILE) {
             Token t = lexer.consume();
             std::cout << t << std::endl;
             if (t.getType() == TokenType::ERR) { break; }
