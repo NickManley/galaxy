@@ -15,6 +15,7 @@
 //===-----------------------------------------------------------------===//
 
 #include "galaxy/Token.h"
+#include <cassert>
 #include <iostream>
 using namespace Galaxy;
 
@@ -43,4 +44,11 @@ const std::string& Token::getValue() const {
     
 const TokenType& Token::getType() const {
     return this->type;
+}
+
+int Token::getPrec() const {
+    assert(this->type == TokenType::BINOP);
+    auto it = Precedence.find(this->value);
+    if (it == Precedence.end()) { return 0; }
+    return it->second;
 }

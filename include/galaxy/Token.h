@@ -36,7 +36,14 @@ static const std::map<const TokenType, const std::string> TokenTypeStr = {
     { TokenType::BINOP, "BINOP" },   // Binary Operator
     { TokenType::NUMBER, "NUMBER" }  // Number
 };
-    
+
+static const std::map<const std::string, int> Precedence = {
+    { "+", 10 },
+    { "-", 10 },
+    { "*", 20 },
+    { "/", 20 }
+};
+
 class Token {
     
 protected:
@@ -74,7 +81,9 @@ public:
     
     /// \returns the TokenType of the token.
     const TokenType& getType() const;
-    
+
+    /// \returns the precedence of the token.
+    int getPrec() const;
 };
 
 std::ostream& operator<<(std::ostream& out, const Token& token);
