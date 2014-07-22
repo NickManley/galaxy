@@ -1,4 +1,4 @@
-##===- unittests/Token/Makefile ------------------------*- Makefile -*-===##
+##===- unittests/galaxy/Makefile -----------------------*- Makefile -*-===##
 #
 #                     The Galaxy Programming Language
 #
@@ -8,7 +8,7 @@
 ##===------------------------------------------------------------------===##
 
 LEVEL = ../..
-TESTNAME = Token
+TESTNAME = Galaxy
 LINK_COMPONENTS := core
 ExtraLibs = -lgalaxy
 

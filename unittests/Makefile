@@ -9,7 +9,7 @@
 
 LEVEL = ..
 
-PARALLEL_DIRS = Token
+PARALLEL_DIRS = galaxy
 
 include $(LEVEL)/Makefile.common
 
