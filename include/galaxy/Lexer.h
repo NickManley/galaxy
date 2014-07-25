@@ -52,6 +52,7 @@ protected:
     static bool isDigit(char c);
     static bool isBinOp(char c);
     static bool isWhitespace(char c);
+    static bool isParen(char c);
     /// @}
     
 }; // END class Lexer

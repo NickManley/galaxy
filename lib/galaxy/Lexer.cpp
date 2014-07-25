@@ -1,4 +1,4 @@
-//===-- galaxyc/Lexer.cpp - Lexer class definition ---------*- C++ -*-===//
+//===-- lib/galaxy/Lexer.cpp - Lexer class definition ------*- C++ -*-===//
 //
 //                     The Galaxy Programming Language
 //
@@ -63,6 +63,9 @@ Token Lexer::lexToken() {
     if (Lexer::isBinOp(src[idx])) {
         return lexBinOp();
     }
+    if (Lexer::isParen(src[idx])) {
+        return Token(src[idx++], TokenType::PAREN);
+    }
     return Token(TokenType::ERR);
 }
 
@@ -95,4 +98,8 @@ bool Lexer::isWhitespace(char c) {
         || c == '\t'
         || c == '\r'
         || c == '\n';
+}
+
+bool Lexer::isParen(char c) {
+    return c == '(' || c == ')';
 }
