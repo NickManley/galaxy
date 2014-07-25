@@ -9,14 +9,12 @@
 
 #include "galaxy/Lexer.h"
 #include "gtest/gtest.h"
-
 using namespace Galaxy;
 
 namespace {
 
 class LexerTest : public ::testing::Test {
 };
-
 
 TEST_F(LexerTest, SingleNumber) {
     Lexer lexer("24");

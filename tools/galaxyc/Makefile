@@ -13,10 +13,10 @@ TOOLNAME=galaxyc
 #
 # List libraries that we'll need
 #
-USEDLIBS = galaxy.a
+USEDLIBS = galaxy.a galaxyast.a
+LINK_COMPONENTS := support
 
 #
 # Include Makefile.common so we know what to do.
 #
 include $(LEVEL)/Makefile.common
-

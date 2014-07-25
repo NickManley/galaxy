@@ -10,7 +10,7 @@
 LEVEL = ../..
 TESTNAME = Galaxy
 LINK_COMPONENTS := core
-ExtraLibs = -lgalaxy
+ExtraLibs = -lgalaxy -lgalaxyast
 
 include $(LEVEL)/Makefile.common
 include $(LEVEL)/unittests/Makefile.unittest
