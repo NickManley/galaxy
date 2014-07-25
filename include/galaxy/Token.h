@@ -16,6 +16,7 @@
 
 #ifndef TOKEN_H
 #define	TOKEN_H
+#include <llvm/Support/raw_ostream.h>
 #include <map>
 #include <string>
 
@@ -26,7 +27,8 @@ enum class TokenType {
     END_LINE,   // End Line
     ERR,        // Error
     BINOP,      // Binary Operator
-    NUMBER      // Number
+    NUMBER,     // Number
+    PAREN       // Parenthesis
 };
 
 static const std::map<const TokenType, const std::string> TokenTypeStr = {
@@ -34,7 +36,8 @@ static const std::map<const TokenType, const std::string> TokenTypeStr = {
     { TokenType::END_LINE, "END_LINE" },  // End Line
     { TokenType::ERR, "ERR" },       // Error
     { TokenType::BINOP, "BINOP" },   // Binary Operator
-    { TokenType::NUMBER, "NUMBER" }  // Number
+    { TokenType::NUMBER, "NUMBER" }, // Number
+    { TokenType::PAREN, "PAREN" }    // Parenthesis
 };
 
 static const std::map<const std::string, int> Precedence = {
@@ -47,8 +50,8 @@ static const std::map<const std::string, int> Precedence = {
 class Token {
     
 protected:
-    const std::string value;
-    const TokenType type;
+    std::string value;
+    TokenType type;
     
 public:
     /// \brief Construct a Token from a string.
@@ -64,17 +67,17 @@ public:
     /// \param[in] orig Original Token.
     Token(const Token& orig);
     
+    /// \brief Destructor.
+    virtual ~Token();
+    
     /// \brief Assignment operator.
     /// \param[in] orig Original value.
     /// \returns copy of the object.
     Token& operator=(const Token& orig);
     
-    /// \brief Destructor.
-    virtual ~Token();
-    
     /// \brief Overload stream insertion operator.
-    friend std::ostream& Galaxy::operator<<(
-        std::ostream& out, const Token& token);
+    friend llvm::raw_ostream& Galaxy::operator<<(
+        llvm::raw_ostream& out, const Token& token);
     
     /// \returns the string value of the token.
     const std::string& getValue() const;
@@ -86,7 +89,7 @@ public:
     int getPrec() const;
 };
 
-std::ostream& operator<<(std::ostream& out, const Token& token);
+llvm::raw_ostream& operator<<(llvm::raw_ostream& out, const Token& token);
     
 } // END namespace Galaxy
 

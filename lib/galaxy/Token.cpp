@@ -1,4 +1,4 @@
-//===-- galaxyc/Token.cpp - Token class definition ---------*- C++ -*-===//
+//===-- lib/galaxy/Token.cpp - Token class definition ------*- C++ -*-===//
 //
 //                     The Galaxy Programming Language
 //
@@ -15,8 +15,8 @@
 //===-----------------------------------------------------------------===//
 
 #include "galaxy/Token.h"
+#include <llvm/Support/raw_ostream.h>
 #include <cassert>
-#include <iostream>
 using namespace Galaxy;
 
 Token::Token(const std::string& value, const TokenType type)
@@ -33,7 +33,15 @@ Token::Token(const Token& orig)
 
 Token::~Token() { }
 
-std::ostream& Galaxy::operator<<(std::ostream& out, const Token& token) {
+Token& Token::operator=(const Token& orig) {
+    if (this == &orig) { return *this; }
+    this->value = orig.value;
+    this->type = orig.type;
+    return *this;
+}
+
+llvm::raw_ostream& Galaxy::operator<<(llvm::raw_ostream& out,
+        const Token& token) {
     return out << "TOKEN(`" << token.value << "`, "
                << TokenTypeStr.at(token.type) << ")";
 }
