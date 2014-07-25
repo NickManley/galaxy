@@ -26,7 +26,7 @@ int main() {
         llvm::outs().flush();
         std::getline(std::cin, input);
         if (input == "exit") { break; }
-        llvm::outs() << Parser(input).parse()->toString() << "\n";
+        Parser(input).parse()->toCode()->dump();
     }
     return 0;
 }

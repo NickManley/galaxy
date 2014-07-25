@@ -32,3 +32,10 @@ ExprAST* NumberExprAST::clone() const {
 std::string NumberExprAST::toString() const {
     return this->value;
 }
+
+llvm::Value* NumberExprAST::toCode() const {
+    const unsigned bits = 32;
+    const uint8_t radix = 10;
+    return llvm::ConstantInt::get(llvm::getGlobalContext(),
+            llvm::APInt(bits, this->value, radix));
+}

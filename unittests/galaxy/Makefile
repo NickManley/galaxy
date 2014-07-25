@@ -9,8 +9,8 @@
 
 LEVEL = ../..
 TESTNAME = Galaxy
-LINK_COMPONENTS := core
-ExtraLibs = -lgalaxy -lgalaxyast
+LINK_COMPONENTS := support irreader
+ProjLibsOptions = -lgalaxy -lgalaxyast
 
 include $(LEVEL)/Makefile.common
 include $(LEVEL)/unittests/Makefile.unittest

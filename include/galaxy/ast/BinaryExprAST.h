@@ -37,6 +37,9 @@ public:
 
     /// \brief Convert to std::string.
     virtual std::string toString() const;
+    
+    /// \brief Convert to LLVM IR code.
+    virtual llvm::Value* toCode() const;
 }; // END class BinaryExprAST
 
 } // END namespace Galaxy

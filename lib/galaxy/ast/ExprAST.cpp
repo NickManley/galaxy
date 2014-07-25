@@ -17,6 +17,9 @@
 #include "galaxy/ast/ExprAST.h"
 using namespace Galaxy;
 
+llvm::IRBuilder<> ExprAST::builder =
+        llvm::IRBuilder<>(llvm::getGlobalContext());
+
 ExprAST::ExprAST() { }
 
 ExprAST::ExprAST(const ExprAST& orig) { }
@@ -29,6 +32,13 @@ ExprAST* ExprAST::clone() const {
 
 std::string ExprAST::toString() const {
     return "()";
+}
+
+llvm::Value* ExprAST::toCode() const {
+    const unsigned bits = 1;
+    const unsigned value = 0;
+    return llvm::ConstantInt::get(llvm::getGlobalContext(),
+            llvm::APInt(bits, value));
 }
 
 llvm::raw_ostream& Galaxy::operator<<(llvm::raw_ostream& out,
