@@ -49,9 +49,9 @@ llvm::Value* BinaryExprAST::toCode() const {
     if (this->op == "*") {
         return builder.CreateMul(leftValue, rightValue, "multmp");
     }
-    //if (this->op == "/") {
-    //    return builder.CreateDiv(leftValue, rightValue, "divtmp");
-    //}
+    if (this->op == "/") {
+        return builder.CreateSDiv(leftValue, rightValue, "divtmp");
+    }
 
     return llvm::ConstantInt::get(llvm::getGlobalContext(),
             llvm::APInt(bits, 0));
