@@ -15,18 +15,15 @@
 ///
 //===-----------------------------------------------------------------===//
 
-#include "galaxy/Parser.h"
-#include <iostream>
+#include "shell.h"
 using namespace Galaxy;
 
 int main() {
-    std::string input;
+    Shell& shell = Shell::getInstance();
+    shell.printGraphic();
     while (true) {
-        llvm::outs() << "> ";
-        llvm::outs().flush();
-        std::getline(std::cin, input);
-        if (input == "exit") { break; }
-        Parser(input).parse()->toCode()->dump();
+        shell.printPrompt();
+        shell.printResult( shell.parse( shell.readLine() ) );
     }
     return 0;
 }
