@@ -47,7 +47,7 @@ Token Lexer::peekAhead() {
     idx = orig_idx;
     return token;
 }
-    
+
 Token Lexer::lexToken() {
     lexToken_start:
     if (idx >= len) {

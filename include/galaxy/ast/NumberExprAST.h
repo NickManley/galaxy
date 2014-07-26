@@ -14,8 +14,8 @@
 ///
 //===-----------------------------------------------------------------===//
 
-#ifndef NUMBEREXPRAST_H
-#define	NUMBEREXPRAST_H
+#ifndef GALAXY_AST_NUMBEREXPRAST_H
+#define	GALAXY_AST_NUMBEREXPRAST_H
 #include "ExprAST.h"
 
 namespace Galaxy {
@@ -41,11 +41,11 @@ public:
 
     /// \brief Convert to std::string.
     virtual std::string toString() const;
-    
+
     /// \brief Convert to LLVM IR code.
     virtual llvm::Value* toCode() const;
 }; // END class NumberExprAST
 
 } // END namespace Galaxy
 
-#endif	/* NUMBEREXPRAST_H */
+#endif	// END ifndef GALAXY_AST_NUMBEREXPRAST_H

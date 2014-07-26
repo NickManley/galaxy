@@ -39,7 +39,7 @@ llvm::Value* BinaryExprAST::toCode() const {
     const unsigned bits = 32;
     llvm::Value *leftValue = lhs->toCode();
     llvm::Value *rightValue = rhs->toCode();
-    
+
     if (this->op == "+") {
         return builder.CreateAdd(leftValue, rightValue, "addtmp");
     }
@@ -52,7 +52,7 @@ llvm::Value* BinaryExprAST::toCode() const {
     //if (this->op == "/") {
     //    return builder.CreateDiv(leftValue, rightValue, "divtmp");
     //}
-    
+
     return llvm::ConstantInt::get(llvm::getGlobalContext(),
             llvm::APInt(bits, 0));
 }

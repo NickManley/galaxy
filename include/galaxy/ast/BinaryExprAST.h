@@ -14,8 +14,8 @@
 ///
 //===-----------------------------------------------------------------===//
 
-#ifndef BINARYEXPRAST_H
-#define	BINARYEXPRAST_H
+#ifndef GALAXY_AST_BINARYEXPRAST_H
+#define GALAXY_AST_BINARYEXPRAST_H
 #include "ExprAST.h"
 
 namespace Galaxy {
@@ -37,11 +37,11 @@ public:
 
     /// \brief Convert to std::string.
     virtual std::string toString() const;
-    
+
     /// \brief Convert to LLVM IR code.
     virtual llvm::Value* toCode() const;
 }; // END class BinaryExprAST
 
 } // END namespace Galaxy
 
-#endif	/* BINARYEXPRAST_H */
+#endif	// END ifndef GALAXY_AST_BINARYEXPRAST_H

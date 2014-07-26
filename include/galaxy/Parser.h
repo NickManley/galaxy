@@ -14,8 +14,8 @@
 ///
 //===-----------------------------------------------------------------===//
 
-#ifndef PARSER_H
-#define	PARSER_H
+#ifndef GALAXY_PARSER_H
+#define	GALAXY_PARSER_H
 #include "ast/BinaryExprAST.h"
 #include "ast/NumberExprAST.h"
 #include "Lexer.h"
@@ -59,4 +59,4 @@ public:
 
 } // END namespace Galaxy
 
-#endif	/* PARSER_H */
+#endif // END ifndef GALAXY_PARSER_H

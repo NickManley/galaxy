@@ -49,7 +49,7 @@ llvm::raw_ostream& Galaxy::operator<<(llvm::raw_ostream& out,
 const std::string& Token::getValue() const {
     return this->value;
 }
-    
+
 const TokenType& Token::getType() const {
     return this->type;
 }

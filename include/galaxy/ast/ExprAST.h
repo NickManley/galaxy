@@ -14,8 +14,8 @@
 ///
 //===-----------------------------------------------------------------===//
 
-#ifndef EXPRAST_H
-#define	EXPRAST_H
+#ifndef GALAXY_AST_EXPRAST_H
+#define	GALAXY_AST_EXPRAST_H
 #include "llvm/Analysis/Verifier.h"
 #include "llvm/IR/DerivedTypes.h"
 #include "llvm/IR/IRBuilder.h"
@@ -48,7 +48,7 @@ public:
 
     /// \brief Convert to std::string.
     virtual std::string toString() const;
-    
+
     /// \brief Convert to LLVM IR code.
     virtual llvm::Value* toCode() const;
 
@@ -61,4 +61,4 @@ llvm::raw_ostream& operator<<(llvm::raw_ostream& out, const ExprAST& expr);
 
 } // END namespace Galaxy
 
-#endif	/* EXPRAST_H */
+#endif	// END ifndef GALAXY_AST_EXPRAST_H
