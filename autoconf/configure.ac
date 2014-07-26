@@ -1,7 +1,7 @@
 dnl **************************************************************************
 dnl * Initialize
 dnl **************************************************************************
-AC_INIT([[[SAMPLE]]],[[[x.xx]]],[bugs@yourdomain])
+AC_INIT([Galaxy],[0.1.0-dev])
 
 dnl Identify where LLVM source tree is
 LLVM_SRC_ROOT="../.."
