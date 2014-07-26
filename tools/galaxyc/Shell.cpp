@@ -56,10 +56,11 @@ std::string Shell::parse(const std::string& input) {
 void Shell::printResult(const std::string& result) {
     llvm::outs().changeColor(llvm::outs().CYAN, true);
     llvm::outs() << result.substr(3) << "\n";
-    llvm::outs().changeColor(llvm::outs().WHITE, true);
+    llvm::outs().flush();
 }
 
 void Shell::printPrompt(const std::string& prefix) {
+    llvm::outs().changeColor(llvm::outs().WHITE, true);
     llvm::outs() << prefix;
     llvm::outs().flush();
 }
