@@ -54,6 +54,9 @@ protected:
     TokenType type;
 
 public:
+    /// \brief Default Token is of TokenType::ERR.
+    explicit Token();
+
     /// \brief Construct a Token from a string.
     explicit Token(const std::string& value, const TokenType type);
 

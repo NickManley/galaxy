@@ -19,6 +19,8 @@
 #include <cassert>
 using namespace Galaxy;
 
+Token::Token() : type(TokenType::ERR) { }
+
 Token::Token(const std::string& value, const TokenType type)
         : value(value), type(type) { }
 
