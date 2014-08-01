@@ -44,8 +44,8 @@ template<class V, class E>
 class Result {
 protected:
     bool hasError;
-    const V value;
-    const E error;
+    V value;
+    E error;
 public:
     Result(const V& val) : hasError(false), value(val), error(E()) {
         assert(llvm::isa<Galaxy::Error>(error) &&
@@ -57,12 +57,12 @@ public:
                 "Result<V,E> : E is not an Error type.");
     }
 
-    const V& val() const {
+    V& val() {
         assert(!hasError && "Cannot call val() on Result with error.");
         return value;
     }
 
-    const E& err() const {
+    E& err() {
         assert(hasError && "Cannot call err() on Result with value.");
         return error;
     }
@@ -75,22 +75,22 @@ public:
         return hasError;
     }
 
-    const V& operator*() const {
+    V& operator*() {
         assert(!hasError && "Cannot access value on Result with error.");
         return value;
     }
     
     template<class T = V>
     typename std::enable_if<std::is_pointer<T>::value, T>::type
-    operator->() const {
+    operator->() {
         assert(!hasError && "Cannot access value on Result with error.");
         return value;
     }
     
     template<class T = V>
     typename std::enable_if<std::is_same<
-        typename std::remove_pointer<T>::type, T>::value, const T*>::type
-    operator->() const {
+        typename std::remove_pointer<T>::type, T>::value, T*>::type
+    operator->() {
         assert(!hasError && "Cannot access value on Result with error.");
         return &value;
     }
