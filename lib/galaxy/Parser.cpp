@@ -86,6 +86,13 @@ ExprAST* Parser::parseBinaryExpr(int prec, ExprAST *lhs) {
     while (true) {
         Token op = lexer->consume();
         if (isEndOfExpr(op)) { break; }
+        if (op.getType() != TokenType::BINOP) {
+            errors.push_back(new ParseError(
+                    ParseErrorType::EXPECTED_BINOP_OR_END,
+                    "Syntax Error (" + lexer->location().toString() +
+                    "): Expected binary operator or end of expression."));
+            return NULL;
+        }
 
         // If the current operator being read has a
         // weaker precedence than the previous one (prec),

@@ -23,6 +23,7 @@ namespace Galaxy {
     
 enum class ParseErrorType {
     EXPECTED_BINOP,
+    EXPECTED_BINOP_OR_END,
     EXPECTED_NUMBER,
     EXPECTED_TERM,
     UNEXPECTED_TOKEN
