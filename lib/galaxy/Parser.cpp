@@ -21,10 +21,14 @@ Parser::Parser(const std::string& src)
         : lexer(new Lexer(src)) { }
 
 Parser::Parser(const Parser& orig)
-        : lexer(new Lexer(*(orig.lexer))) { }
+        : lexer(new Lexer(*(orig.lexer))), errors(orig.errors) { }
 
 Parser::~Parser() {
     delete lexer;
+    for(auto e : errors) {
+        delete e;
+    }
+    errors.clear();
 }
 
 ExprAST* Parser::parse() {
@@ -32,7 +36,9 @@ ExprAST* Parser::parse() {
 }
 
 ExprAST* Parser::parseExpr() {
-    return parseBinaryExpr(0, parseTerm());
+    ExprAST *expr = parseTerm();
+    if (!expr) { return NULL; }
+    return parseBinaryExpr(0, expr);
 }
 
 NumberExprAST* Parser::parseNumberExpr() {
@@ -44,7 +50,11 @@ NumberExprAST* Parser::parseNumberExpr() {
 
 NumberExprAST* Parser::parseNegativeExpr() {
     Token token = lexer->consume();
-    assert(token.getType() == TokenType::NUMBER);
+    if (token.getType() != TokenType::NUMBER) {
+        errors.push_back(new ParseError(ParseErrorType::EXPECTED_NUMBER,
+                "Syntax Error: Expected number after unary minus."));
+        return NULL;
+    }
     return new NumberExprAST("-" + token.getValue());
 }
 
@@ -59,24 +69,19 @@ ExprAST* Parser::parseTerm() {
         ExprAST *expr = parseExpr();
         return expr;
     }
+    if (token.getType() == TokenType::END_FILE) {
+        return NULL;
+    }
+    errors.push_back(new ParseError(ParseErrorType::UNEXPECTED_TOKEN,
+            "Syntax Error: Unexpected token."));
     return NULL;
 }
 
 // Implemented using precedence climbing.
 ExprAST* Parser::parseBinaryExpr(int prec, ExprAST *lhs) {
-    // The binary expression ends when we reach the
-    // end of the program or a closing parenthesis.
-    auto isEnd = [] (const Token& t) -> bool {
-        return t.getType() == TokenType::END_FILE
-                || t.getValue() == ")";
-    };
-    auto isBinOp = [] (const Token& t) -> bool {
-        return t.getType() == TokenType::BINOP;
-    };
-
     while (true) {
         Token op = lexer->consume();
-        if (isEnd(op)) { break; }
+        if (isEndOfExpr(op)) { break; }
 
         // If the current operator being read has a
         // weaker precedence than the previous one (prec),
@@ -92,4 +97,25 @@ ExprAST* Parser::parseBinaryExpr(int prec, ExprAST *lhs) {
         lhs = new BinaryExprAST(op.getValue(), lhs, rhs);
     }
     return lhs;
+}
+
+bool Parser::hasErrors() {
+    return errors.size() > 0;
+}
+
+ParseError* Parser::popError() {
+    if (errors.size() > 0) {
+        auto e = errors.front();
+        errors.pop_front();
+        return e;
+    }
+    return NULL;
+}
+
+bool Parser::isEndOfExpr(const Token& t) {
+    return t.getType() == TokenType::END_FILE || t.getValue() == ")";
+}
+
+bool Parser::isBinOp(const Token& t) {
+    return t.getType() == TokenType::BINOP;
 }

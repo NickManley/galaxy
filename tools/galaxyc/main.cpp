@@ -15,7 +15,8 @@
 ///
 //===-----------------------------------------------------------------===//
 
-#include "shell.h"
+#include "galaxy/Parser.h"
+#include "Shell.h"
 using namespace Galaxy;
 
 int main() {
@@ -23,7 +24,22 @@ int main() {
     shell.printGraphic();
     while (true) {
         shell.printPrompt();
-        shell.printResult( shell.parse( shell.readLine() ) );
+        std::string input = shell.readLine();
+        if (input == "exit" || input == "quit") { exit(0); }
+        std::string output;
+        llvm::raw_string_ostream rso(output);
+        Parser parser(input);
+        ExprAST *parseTree = parser.parse();
+        if (!parseTree) {
+            ParseError *err;
+            while ((err = parser.popError())) {
+                rso << err->getMessage() << "\n";
+            }
+            shell.printError(rso.str());
+            continue;
+        }
+        parseTree->toCode()->print(rso);
+        shell.printResult(rso.str().substr(3));
     }
     return 0;
 }

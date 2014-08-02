@@ -24,7 +24,6 @@ namespace Galaxy {
 
 enum class TokenType {
     END_FILE,   // End File
-    END_LINE,   // End Line
     ERR,        // Error
     BINOP,      // Binary Operator
     NUMBER,     // Number
@@ -33,7 +32,6 @@ enum class TokenType {
 
 static const std::map<const TokenType, const std::string> TokenTypeStr = {
     { TokenType::END_FILE, "END_FILE" },  // End File
-    { TokenType::END_LINE, "END_LINE" },  // End Line
     { TokenType::ERR, "ERR" },       // Error
     { TokenType::BINOP, "BINOP" },   // Binary Operator
     { TokenType::NUMBER, "NUMBER" }, // Number

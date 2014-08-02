@@ -45,22 +45,20 @@ std::string Shell::readLine() {
     return line;
 }
 
-std::string Shell::parse(const std::string& input) {
-    if (input == "exit" || input == "quit") { exit(0); }
-    std::string s;
-    llvm::raw_string_ostream rso(s);
-    Parser(input).parse()->toCode()->print(rso);
-    return rso.str();
+void Shell::printResult(const std::string& result) {
+    llvm::outs().changeColor(llvm::raw_ostream::Colors::CYAN, true);
+    llvm::outs() << result << "\n";
+    llvm::outs().flush();
 }
 
-void Shell::printResult(const std::string& result) {
-    llvm::outs().changeColor(llvm::outs().CYAN, true);
-    llvm::outs() << result.substr(3) << "\n";
+void Shell::printError(const std::string& error) {
+    llvm::outs().changeColor(llvm::raw_ostream::Colors::RED, true);
+    llvm::outs() << error << "\n";
     llvm::outs().flush();
 }
 
 void Shell::printPrompt(const std::string& prefix) {
-    llvm::outs().changeColor(llvm::outs().WHITE, true);
+    llvm::outs().changeColor(llvm::raw_ostream::Colors::WHITE, true);
     llvm::outs() << prefix;
     llvm::outs().flush();
 }

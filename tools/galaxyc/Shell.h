@@ -32,8 +32,8 @@ private:
 public:
     static Shell& getInstance();
     std::string readLine();
-    std::string parse(const std::string& input);
     void printResult(const std::string& result);
+    void printError(const std::string& error);
     void printPrompt(const std::string& prefix = ">>> ");
     void printGraphic();
 }; // END class Shell

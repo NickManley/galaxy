@@ -18,13 +18,16 @@
 #define	GALAXY_PARSER_H
 #include "ast/BinaryExprAST.h"
 #include "ast/NumberExprAST.h"
-#include "Lexer.h"
+#include "galaxy/Lexer.h"
+#include "galaxy/ParseError.h"
+#include <list>
 
 namespace Galaxy {
 
 class Parser {
 protected:
-    Lexer* lexer;
+    Lexer *lexer;
+    std::list<ParseError*> errors;
 public:
     /// \brief Constructor.
     explicit Parser(const std::string& src);
@@ -55,6 +58,21 @@ public:
 
     /// \brief Parse binary expression.
     ExprAST* parseBinaryExpr(int prec, ExprAST *lhs);
+    
+    bool hasErrors();
+    
+    /// \brief Pop the oldest error from the errors list.
+    /// \details Popping is done via FIFO (First in, First out).
+    /// This way the errors are returned in the order in which
+    /// they were detected.
+    ParseError* popError();
+    
+protected:
+    /// \name utility methods
+    /// @{
+    static bool isEndOfExpr(const Token& t);
+    static bool isBinOp(const Token& t);
+    /// @}
 }; // END class Parser
 
 } // END namespace Galaxy
