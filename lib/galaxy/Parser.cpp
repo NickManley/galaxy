@@ -39,7 +39,8 @@ ExprAST* Parser::parseExpr() {
     ExprAST *expr = parseTerm();
     if (!expr) {
         errors.push_back(new ParseError(ParseErrorType::UNEXPECTED_TOKEN,
-            "Syntax Error: Unexpected token."));
+            "Syntax Error (" + lexer->location().toString() +
+            "): Unexpected token."));
         return NULL;
     }
     return parseBinaryExpr(0, expr);
@@ -56,7 +57,8 @@ NumberExprAST* Parser::parseNegativeExpr() {
     Token token = lexer->consume();
     if (token.getType() != TokenType::NUMBER) {
         errors.push_back(new ParseError(ParseErrorType::EXPECTED_NUMBER,
-                "Syntax Error: Expected number after unary minus."));
+                "Syntax Error (" + lexer->location().toString() +
+                "): Expected number after unary minus."));
         return NULL;
     }
     return new NumberExprAST("-" + token.getValue());
@@ -93,7 +95,8 @@ ExprAST* Parser::parseBinaryExpr(int prec, ExprAST *lhs) {
         ExprAST *rhs = parseTerm();
         if (!rhs) {
             errors.push_back(new ParseError(ParseErrorType::EXPECTED_TERM,
-                    "Syntax Error: Expected term after operator '" +
+                    "Syntax Error (" + lexer->location().toString() +
+                    "): Expected term after operator '" +
                     op.getValue() + "'."));
             return NULL;
         }

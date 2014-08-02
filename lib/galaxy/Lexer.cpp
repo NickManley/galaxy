@@ -18,10 +18,10 @@
 using namespace Galaxy;
 
 Lexer::Lexer(const std::string& input)
-        : src(input), len(input.length()), idx(0) { }
+        : src(input), len(input.length()), idx(0), loc(1, 0) { }
 
 Lexer::Lexer(const Lexer& orig)
-        : src(orig.src), len(orig.len), idx(orig.idx) { }
+        : src(orig.src), len(orig.len), idx(orig.idx), loc(orig.loc) { }
 
 Lexer::~Lexer() { }
 
@@ -35,17 +35,25 @@ Token Lexer::consume() {
 // before returning.
 Token Lexer::peek() {
     std::size_t orig_idx = idx;
+    SourceLocation orig_loc = loc;
     Token token = lexToken();
     idx = orig_idx;
+    loc = orig_loc;
     return token;
 }
 
 Token Lexer::peekAhead() {
     std::size_t orig_idx = idx;
+    SourceLocation orig_loc = loc;
     lexToken(); // ignore current
     Token token = lexToken();
     idx = orig_idx;
+    loc = orig_loc;
     return token;
+}
+
+const SourceLocation& Lexer::location() {
+    return loc;
 }
 
 Token Lexer::lexToken() {
@@ -55,6 +63,7 @@ Token Lexer::lexToken() {
     }
     if (Lexer::isWhitespace(src[idx])) {
         idx++;
+        loc.col++;
         goto lexToken_start;
     }
     if (Lexer::isDigit(src[idx])) {
@@ -64,12 +73,14 @@ Token Lexer::lexToken() {
         return lexBinOp();
     }
     if (Lexer::isParen(src[idx])) {
+        loc.col++;
         return Token(src[idx++], TokenType::PAREN);
     }
     return Token(TokenType::ERR);
 }
 
 Token Lexer::lexBinOp() {
+    loc.col++;
     return Token(src[idx++], TokenType::BINOP);
 }
 
@@ -78,6 +89,7 @@ Token Lexer::lexNumber() {
     for (auto it = src.cbegin()+idx; isDigit(*it); it++) {
         result.append(1, *it);
         idx++;
+        loc.col++;
     }
     return Token(result, TokenType::NUMBER);
 }

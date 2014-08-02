@@ -16,7 +16,8 @@
 
 #ifndef GALAXY_LEXER_H
 #define	GALAXY_LEXER_H
-#include "Token.h"
+#include "galaxy/SourceLocation.h"
+#include "galaxy/Token.h"
 
 namespace Galaxy {
 
@@ -26,7 +27,7 @@ protected:
     const std::string src;
     const std::size_t len;
     std::size_t idx;
-
+    SourceLocation loc;
 public:
     /// \brief Construct a Lexer from a string.
     explicit Lexer(const std::string& input);
@@ -41,7 +42,7 @@ public:
     Token consume();
     Token peek();
     Token peekAhead();
-
+    const SourceLocation& location();
 protected:
     Token lexToken();
     Token lexBinOp();
