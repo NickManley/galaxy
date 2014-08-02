@@ -37,7 +37,11 @@ ExprAST* Parser::parse() {
 
 ExprAST* Parser::parseExpr() {
     ExprAST *expr = parseTerm();
-    if (!expr) { return NULL; }
+    if (!expr) {
+        errors.push_back(new ParseError(ParseErrorType::UNEXPECTED_TOKEN,
+            "Syntax Error: Unexpected token."));
+        return NULL;
+    }
     return parseBinaryExpr(0, expr);
 }
 
@@ -72,8 +76,6 @@ ExprAST* Parser::parseTerm() {
     if (token.getType() == TokenType::END_FILE) {
         return NULL;
     }
-    errors.push_back(new ParseError(ParseErrorType::UNEXPECTED_TOKEN,
-            "Syntax Error: Unexpected token."));
     return NULL;
 }
 
@@ -89,6 +91,12 @@ ExprAST* Parser::parseBinaryExpr(int prec, ExprAST *lhs) {
         if (op.getPrec() < prec) { return lhs; }
         // Parse the right hand side of the expression.
         ExprAST *rhs = parseTerm();
+        if (!rhs) {
+            errors.push_back(new ParseError(ParseErrorType::EXPECTED_TERM,
+                    "Syntax Error: Expected term after operator '" +
+                    op.getValue() + "'."));
+            return NULL;
+        }
 
         Token nextOp = lexer->peek();
         if (isBinOp(nextOp) && op.getPrec() < nextOp.getPrec()) {
