@@ -23,7 +23,7 @@ namespace Galaxy {
 class BinaryExprAST : public ExprAST {
 protected:
     const std::string op;
-    const ExprAST *lhs, *rhs;
+    ExprAST *lhs, *rhs;
 
 public:
     /// \brief Constructor.
@@ -35,8 +35,15 @@ public:
     /// \brief Destructor.
     virtual ~BinaryExprAST();
 
+    const std::string& getOp() const;
+    ExprAST* getLhs() const;
+    ExprAST* getRhs() const;
+
     /// \brief Convert to std::string.
     virtual std::string toString() const;
+
+    /// \brief Method to accept visitors.
+    virtual void accept(ASTVisitor* visitor);
 
     /// \brief Convert to LLVM IR code.
     virtual llvm::Value* toCode() const;

@@ -14,6 +14,7 @@
 ///
 //===-----------------------------------------------------------------===//
 
+#include "galaxy/ast/ASTVisitor.h"
 #include "galaxy/ast/BinaryExprAST.h"
 using namespace Galaxy;
 
@@ -30,10 +31,27 @@ BinaryExprAST::~BinaryExprAST() {
     delete rhs;
 }
 
+const std::string& BinaryExprAST::getOp() const {
+    return op;
+}
+
+ExprAST* BinaryExprAST::getLhs() const {
+    return lhs;
+}
+
+ExprAST* BinaryExprAST::getRhs() const {
+    return rhs;
+}
+
 std::string BinaryExprAST::toString() const {
     return "(" + this->op + " " + this->lhs->toString()
             + " " + this->rhs->toString() + ")";
 }
+
+void BinaryExprAST::accept(ASTVisitor* visitor) {
+    visitor->visit(*this);
+}
+
 
 llvm::Value* BinaryExprAST::toCode() const {
     const unsigned bits = 32;

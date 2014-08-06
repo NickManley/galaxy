@@ -14,6 +14,7 @@
 ///
 //===-----------------------------------------------------------------===//
 
+#include "galaxy/ast/ASTVisitor.h"
 #include "galaxy/ast/NumberExprAST.h"
 using namespace Galaxy;
 
@@ -25,12 +26,20 @@ NumberExprAST::NumberExprAST(const NumberExprAST& orig)
 
 NumberExprAST::~NumberExprAST() { }
 
+const std::string& NumberExprAST::getValue() const {
+    return this->value;
+}
+
 ExprAST* NumberExprAST::clone() const {
     return new NumberExprAST(*this);
 }
 
 std::string NumberExprAST::toString() const {
     return this->value;
+}
+
+void NumberExprAST::accept(ASTVisitor* visitor) {
+    visitor->visit(*this);
 }
 
 llvm::Value* NumberExprAST::toCode() const {

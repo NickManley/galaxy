@@ -26,6 +26,8 @@
 
 namespace Galaxy {
 
+class ASTVisitor;
+
 class ExprAST {
 protected:
     static llvm::Module *module;
@@ -48,6 +50,9 @@ public:
 
     /// \brief Convert to std::string.
     virtual std::string toString() const;
+
+    /// \brief Method to accept visitors.
+    virtual void accept(ASTVisitor* visitor);
 
     /// \brief Convert to LLVM IR code.
     virtual llvm::Value* toCode() const;

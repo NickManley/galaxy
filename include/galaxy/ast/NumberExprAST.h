@@ -34,6 +34,8 @@ public:
     /// \brief Destructor.
     virtual ~NumberExprAST();
 
+    const std::string& getValue() const;
+
     /// \brief Clone method.
     /// \details caller is responsible for calling
     /// delete on returned pointer.
@@ -41,6 +43,9 @@ public:
 
     /// \brief Convert to std::string.
     virtual std::string toString() const;
+
+    /// \brief Method to accept visitors.
+    virtual void accept(ASTVisitor* visitor);
 
     /// \brief Convert to LLVM IR code.
     virtual llvm::Value* toCode() const;

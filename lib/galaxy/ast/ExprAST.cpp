@@ -15,6 +15,7 @@
 //===-----------------------------------------------------------------===//
 
 #include "galaxy/ast/ExprAST.h"
+#include "galaxy/ast/ASTVisitor.h"
 using namespace Galaxy;
 
 llvm::IRBuilder<> ExprAST::builder =
@@ -32,6 +33,10 @@ ExprAST* ExprAST::clone() const {
 
 std::string ExprAST::toString() const {
     return "()";
+}
+
+void ExprAST::accept(ASTVisitor* visitor) {
+    visitor->visit(*this);
 }
 
 llvm::Value* ExprAST::toCode() const {
