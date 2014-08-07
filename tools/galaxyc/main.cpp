@@ -15,11 +15,13 @@
 ///
 //===-----------------------------------------------------------------===//
 
+#include "galaxy/CodeGenerator.h"
 #include "galaxy/Parser.h"
 #include "Shell.h"
 using namespace Galaxy;
 
 int main() {
+    CodeGenerator codegen;
     Shell& shell = Shell::getInstance();
     shell.printGraphic();
     while (true) {
@@ -38,8 +40,9 @@ int main() {
             shell.printError(rso.str());
             continue;
         }
-        parseTree->toCode()->print(rso);
+        codegen.getValue(parseTree)->print(rso);
         shell.printResult(rso.str().substr(3));
+        delete parseTree;
     }
     return 0;
 }

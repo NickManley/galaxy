@@ -41,9 +41,6 @@ public:
     /// \brief Convert to std::string.
     virtual std::string toString() const;
 
-    /// \brief Convert FunctionAST to LLVM IR.
-    virtual llvm::Function* toCode() const;
-
     /// \brief Overload stream insertion operator.
     friend llvm::raw_ostream& Galaxy::operator<<(
             llvm::raw_ostream& out, const FunctionAST& func);

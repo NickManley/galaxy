@@ -18,9 +18,6 @@
 #include "galaxy/ast/ASTVisitor.h"
 using namespace Galaxy;
 
-llvm::IRBuilder<> ExprAST::builder =
-        llvm::IRBuilder<>(llvm::getGlobalContext());
-
 ExprAST::ExprAST() { }
 
 ExprAST::ExprAST(const ExprAST& orig) { }
@@ -37,13 +34,6 @@ std::string ExprAST::toString() const {
 
 void ExprAST::accept(ASTVisitor* visitor) {
     visitor->visit(*this);
-}
-
-llvm::Value* ExprAST::toCode() const {
-    const unsigned bits = 1;
-    const unsigned value = 0;
-    return llvm::ConstantInt::get(llvm::getGlobalContext(),
-            llvm::APInt(bits, value));
 }
 
 llvm::raw_ostream& Galaxy::operator<<(llvm::raw_ostream& out,

@@ -45,8 +45,6 @@ public:
     /// \brief Method to accept visitors.
     virtual void accept(ASTVisitor* visitor);
 
-    /// \brief Convert to LLVM IR code.
-    virtual llvm::Value* toCode() const;
 }; // END class BinaryExprAST
 
 } // END namespace Galaxy

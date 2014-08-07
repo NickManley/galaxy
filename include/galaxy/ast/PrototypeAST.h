@@ -29,7 +29,7 @@ protected:
 public:
     /// \brief Constructor.
     PrototypeAST();
-    
+
     /// \brief Constructor.
     PrototypeAST(const std::string& name,
             const std::vector<std::string>& args);
@@ -49,9 +49,6 @@ public:
 
     /// \brief Convert to std::string.
     virtual std::string toString() const;
-
-    /// \brief Convert PrototypeAST to LLVM IR.
-    virtual llvm::Function* toCode() const;
 
     /// \brief Overload stream insertion operator.
     friend llvm::raw_ostream& Galaxy::operator<<(

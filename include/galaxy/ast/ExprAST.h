@@ -29,10 +29,6 @@ namespace Galaxy {
 class ASTVisitor;
 
 class ExprAST {
-protected:
-    static llvm::Module *module;
-    static llvm::IRBuilder<> builder;
-    static std::map<std::string, llvm::Value*> namedValues;
 public:
     /// \brief Constructor.
     ExprAST();
@@ -53,9 +49,6 @@ public:
 
     /// \brief Method to accept visitors.
     virtual void accept(ASTVisitor* visitor);
-
-    /// \brief Convert to LLVM IR code.
-    virtual llvm::Value* toCode() const;
 
     /// \brief Overload stream insertion operator.
     friend llvm::raw_ostream& Galaxy::operator<<(

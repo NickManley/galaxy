@@ -41,10 +41,3 @@ std::string NumberExprAST::toString() const {
 void NumberExprAST::accept(ASTVisitor* visitor) {
     visitor->visit(*this);
 }
-
-llvm::Value* NumberExprAST::toCode() const {
-    const unsigned bits = 32;
-    const uint8_t radix = 10;
-    return llvm::ConstantInt::get(llvm::getGlobalContext(),
-            llvm::APInt(bits, this->value, radix));
-}
