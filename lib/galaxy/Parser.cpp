@@ -91,6 +91,7 @@ ExprAST* Parser::parseBinaryExpr(int prec, ExprAST *lhs) {
                     ParseErrorType::EXPECTED_BINOP_OR_END,
                     "Syntax Error (" + lexer->location().toString() +
                     "): Expected binary operator or end of expression."));
+            delete lhs;
             return NULL;
         }
 
@@ -105,6 +106,7 @@ ExprAST* Parser::parseBinaryExpr(int prec, ExprAST *lhs) {
                     "Syntax Error (" + lexer->location().toString() +
                     "): Expected term after operator '" +
                     op.getValue() + "'."));
+            delete rhs;
             return NULL;
         }
 
