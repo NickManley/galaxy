@@ -17,16 +17,21 @@
 #ifndef GALAXY_CODEGENERATOR_H
 #define	GALAXY_CODEGENERATOR_H
 #include "galaxy/ast/ASTVisitor.h"
-#include "galaxy/ast/BinaryExprAST.h"
-#include "galaxy/ast/NumberExprAST.h"
 #include <llvm/IR/DerivedTypes.h>
 #include <llvm/IR/IRBuilder.h>
+#include <llvm/IR/Module.h>
 
 namespace Galaxy {
+
+class BinaryExprAST;
+class FunctionAST;
+class NumberExprAST;
+class PrototypeAST;
 
 class CodeGenerator : public ASTVisitor {
 protected:
     static llvm::IRBuilder<> builder;
+    static llvm::Module* module;
 public:
     void* result;
 
@@ -39,12 +44,15 @@ public:
     /// \brief Destructor.
     virtual ~CodeGenerator();
 
-    llvm::Value* getValue(const ExprAST *expr);
     llvm::Value* getValue(ExprAST *expr);
+    llvm::Function* getPrototype(PrototypeAST *proto);
+    llvm::Function* getFunction(FunctionAST *func);
 
     void visit(const ExprAST& ast);
     void visit(const BinaryExprAST& ast);
+    void visit(const FunctionAST& ast);
     void visit(const NumberExprAST& ast);
+    void visit(const PrototypeAST& ast);
 };
 
 } // END namespace Galaxy

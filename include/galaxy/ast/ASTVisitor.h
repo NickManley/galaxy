@@ -21,14 +21,18 @@ namespace Galaxy {
 
 class ExprAST;
 class BinaryExprAST;
+class FunctionAST;
 class NumberExprAST;
+class PrototypeAST;
 
 class ASTVisitor {
 public:
     virtual ~ASTVisitor() { }
     virtual void visit(const ExprAST& ast) = 0;
     virtual void visit(const BinaryExprAST& ast) = 0;
+    virtual void visit(const FunctionAST& ast) = 0;
     virtual void visit(const NumberExprAST& ast) = 0;
+    virtual void visit(const PrototypeAST& ast) = 0;
 
 }; // END class ASTVisitor
 

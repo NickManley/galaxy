@@ -35,6 +35,11 @@ public:
     /// \brief Destructor.
     virtual ~BinaryExprAST();
 
+    /// \brief Clone method.
+    /// \details caller is responsible for calling
+    /// delete on returned pointer.
+    virtual ExprAST* clone() const;
+
     const std::string& getOp() const;
     ExprAST* getLhs() const;
     ExprAST* getRhs() const;

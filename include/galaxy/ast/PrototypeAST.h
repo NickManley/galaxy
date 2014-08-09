@@ -22,6 +22,8 @@
 
 namespace Galaxy {
 
+class ASTVisitor;
+
 class PrototypeAST {
 protected:
     std::string name;
@@ -49,6 +51,9 @@ public:
 
     /// \brief Convert to std::string.
     virtual std::string toString() const;
+
+    /// \brief Method to accept visitors.
+    virtual void accept(ASTVisitor* visitor);
 
     /// \brief Overload stream insertion operator.
     friend llvm::raw_ostream& Galaxy::operator<<(

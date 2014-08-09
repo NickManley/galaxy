@@ -16,10 +16,14 @@
 
 #ifndef GALAXY_AST_FUNCTIONAST_H
 #define	GALAXY_AST_FUNCTIONAST_H
-#include "galaxy/ast/ExprAST.h"
-#include "galaxy/ast/PrototypeAST.h"
+#include <llvm/Support/raw_ostream.h>
+#include <string>
 
 namespace Galaxy {
+
+class ASTVisitor;
+class ExprAST;
+class PrototypeAST;
 
 class FunctionAST {
 protected:
@@ -29,17 +33,26 @@ public:
     /// \brief Constructor.
     FunctionAST();
 
+    /// \brief Constructor.
+    FunctionAST(PrototypeAST *proto, ExprAST *expr);
+
     /// \brief Copy constructor.
     FunctionAST(const FunctionAST& orig);
 
     /// \brief Destructor.
     virtual ~FunctionAST();
 
+    PrototypeAST* getPrototype() const;
+    ExprAST* getExpr() const;
+
     /// \brief Clone method.
     virtual FunctionAST* clone() const;
 
     /// \brief Convert to std::string.
     virtual std::string toString() const;
+
+    /// \brief Method to accept visitors.
+    virtual void accept(ASTVisitor* visitor);
 
     /// \brief Overload stream insertion operator.
     friend llvm::raw_ostream& Galaxy::operator<<(

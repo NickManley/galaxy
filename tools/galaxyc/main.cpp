@@ -15,10 +15,15 @@
 ///
 //===-----------------------------------------------------------------===//
 
+#include "galaxy/ast/FunctionAST.h"
+#include "galaxy/ast/PrototypeAST.h"
 #include "galaxy/CodeGenerator.h"
 #include "galaxy/Parser.h"
 #include "Shell.h"
 using namespace Galaxy;
+
+void printValue(ExprAST *expr);
+void printFunc(ExprAST *expr);
 
 int main() {
     CodeGenerator codegen;
@@ -40,9 +45,30 @@ int main() {
             shell.printError(rso.str());
             continue;
         }
-        codegen.getValue(parseTree)->print(rso);
-        shell.printResult(rso.str().substr(3));
+        printFunc(parseTree);
         delete parseTree;
     }
     return 0;
+}
+
+void printValue(ExprAST *expr) {
+    Shell& shell = Shell::getInstance();
+    CodeGenerator codegen;
+    std::string output;
+    llvm::raw_string_ostream rso(output);
+
+    codegen.getValue(expr)->print(rso);
+    shell.printResult(rso.str().substr(3));
+}
+
+void printFunc(ExprAST *expr) {
+    Shell& shell = Shell::getInstance();
+    CodeGenerator codegen;
+    std::string output;
+    llvm::raw_string_ostream rso(output);
+    FunctionAST *func = new FunctionAST(new PrototypeAST(), expr);
+
+    codegen.getFunction(func)->print(rso);
+    shell.printResult(rso.str());
+    delete func;
 }

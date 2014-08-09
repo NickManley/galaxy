@@ -31,6 +31,10 @@ BinaryExprAST::~BinaryExprAST() {
     delete rhs;
 }
 
+ExprAST* BinaryExprAST::clone() const {
+    return new BinaryExprAST(*this);
+}
+
 const std::string& BinaryExprAST::getOp() const {
     return op;
 }

@@ -14,8 +14,8 @@
 ///
 //===-----------------------------------------------------------------===//
 
-#include "galaxy/ast/ExprAST.h"
 #include "galaxy/ast/ASTVisitor.h"
+#include "galaxy/ast/ExprAST.h"
 using namespace Galaxy;
 
 ExprAST::ExprAST() { }
