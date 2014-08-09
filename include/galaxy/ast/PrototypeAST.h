@@ -30,10 +30,10 @@ protected:
     std::vector<std::string> args;
 public:
     /// \brief Constructor.
-    PrototypeAST();
+    explicit PrototypeAST();
 
     /// \brief Constructor.
-    PrototypeAST(const std::string& name,
+    explicit PrototypeAST(const std::string& name,
             const std::vector<std::string>& args);
 
     /// \brief Copy constructor.

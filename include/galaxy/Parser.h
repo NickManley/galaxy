@@ -16,13 +16,14 @@
 
 #ifndef GALAXY_PARSER_H
 #define	GALAXY_PARSER_H
-#include "ast/BinaryExprAST.h"
-#include "ast/NumberExprAST.h"
-#include "galaxy/Lexer.h"
-#include "galaxy/ParseError.h"
 #include <list>
 
 namespace Galaxy {
+
+class BinaryExprAST;
+class NumberExprAST;
+class Lexer;
+class ParseError;
 
 class Parser {
 protected:
@@ -58,15 +59,15 @@ public:
 
     /// \brief Parse binary expression.
     ExprAST* parseBinaryExpr(int prec, ExprAST *lhs);
-    
+
     bool hasErrors();
-    
+
     /// \brief Pop the oldest error from the errors list.
     /// \details Popping is done via FIFO (First in, First out).
     /// This way the errors are returned in the order in which
     /// they were detected.
     ParseError* popError();
-    
+
 protected:
     /// \name utility methods
     /// @{

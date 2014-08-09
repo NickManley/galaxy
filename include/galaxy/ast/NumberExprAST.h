@@ -26,7 +26,7 @@ protected:
 
 public:
     /// \brief Constructor.
-    NumberExprAST(const std::string& value);
+    explicit NumberExprAST(const std::string& value);
 
     /// \brief Copy constructor.
     NumberExprAST(const NumberExprAST& orig);

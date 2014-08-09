@@ -16,11 +16,6 @@
 
 #ifndef GALAXY_AST_EXPRAST_H
 #define	GALAXY_AST_EXPRAST_H
-#include "llvm/Analysis/Verifier.h"
-#include "llvm/IR/DerivedTypes.h"
-#include "llvm/IR/IRBuilder.h"
-#include "llvm/IR/LLVMContext.h"
-#include "llvm/IR/Module.h"
 #include <llvm/Support/raw_ostream.h>
 #include <string>
 
@@ -31,7 +26,7 @@ class ASTVisitor;
 class ExprAST {
 public:
     /// \brief Constructor.
-    ExprAST();
+    explicit ExprAST();
 
     /// \brief Copy constructor.
     ExprAST(const ExprAST& orig);

@@ -27,7 +27,7 @@ protected:
 
 public:
     /// \brief Constructor.
-    BinaryExprAST(const std::string op, ExprAST *lhs, ExprAST *rhs);
+    explicit BinaryExprAST(const std::string op, ExprAST *lhs, ExprAST *rhs);
 
     /// \brief Copy constructor.
     BinaryExprAST(const BinaryExprAST& orig);

@@ -74,8 +74,6 @@ void CodeGenerator::visit(const FunctionAST& ast) {
     PrototypeAST *proto = ast.getPrototype();
     ExprAST *expr = ast.getExpr();
     llvm::Function *func = this->getPrototype(proto);
-
-    /// \todo Create BasicBlock
     llvm::BasicBlock *bb = llvm::BasicBlock::Create(
             llvm::getGlobalContext(), "entry", func);
     builder.SetInsertPoint(bb);

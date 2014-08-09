@@ -31,10 +31,10 @@ protected:
     ExprAST *expr;
 public:
     /// \brief Constructor.
-    FunctionAST();
+    explicit FunctionAST();
 
     /// \brief Constructor.
-    FunctionAST(PrototypeAST *proto, ExprAST *expr);
+    explicit FunctionAST(PrototypeAST *proto, ExprAST *expr);
 
     /// \brief Copy constructor.
     FunctionAST(const FunctionAST& orig);

@@ -17,6 +17,7 @@
 #ifndef GALAXY_CODEGENERATOR_H
 #define	GALAXY_CODEGENERATOR_H
 #include "galaxy/ast/ASTVisitor.h"
+#include <llvm/Analysis/Verifier.h>
 #include <llvm/IR/DerivedTypes.h>
 #include <llvm/IR/IRBuilder.h>
 #include <llvm/IR/Module.h>
