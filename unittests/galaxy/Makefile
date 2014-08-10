@@ -9,7 +9,7 @@
 
 LEVEL = ../..
 TESTNAME = Galaxy
-LINK_COMPONENTS := support irreader
+LINK_COMPONENTS := support irreader jit native
 ProjLibsOptions = -lgalaxy -lgalaxyast
 
 include $(LEVEL)/Makefile.common
