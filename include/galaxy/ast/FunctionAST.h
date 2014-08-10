@@ -36,6 +36,9 @@ public:
     /// \brief Constructor.
     explicit FunctionAST(PrototypeAST *proto, ExprAST *expr);
 
+    /// \brief Constructor.
+    explicit FunctionAST(ExprAST *expr);
+
     /// \brief Copy constructor.
     FunctionAST(const FunctionAST& orig);
 

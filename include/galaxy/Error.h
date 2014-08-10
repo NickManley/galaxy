@@ -16,12 +16,18 @@
 
 #ifndef GALAXY_ERROR_H
 #define	GALAXY_ERROR_H
+#include <string>
 
 namespace Galaxy {
-    
+
 class Error {
+protected:
+    std::string message;
 public:
     explicit Error();
+    explicit Error(const std::string& message);
+    virtual ~Error();
+    virtual const std::string& getMessage() const;
 };
 
 } // END namespace Galaxy

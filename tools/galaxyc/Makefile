@@ -14,7 +14,7 @@ TOOLNAME=galaxyc
 # List libraries that we'll need
 #
 USEDLIBS = galaxy.a galaxyast.a
-LINK_COMPONENTS := support irreader
+LINK_COMPONENTS := support irreader jit native
 
 #
 # Include Makefile.common so we know what to do.

@@ -24,7 +24,7 @@ ParseError::ParseError(const ParseErrorType& type)
 
 ParseError::ParseError(const ParseErrorType& type,
         const std::string& message)
-        : type(type), message(message) { }
+        : Error(message), type(type) { }
 
 ParseError::~ParseError() { }
 

@@ -25,6 +25,9 @@ FunctionAST::FunctionAST() { }
 FunctionAST::FunctionAST(PrototypeAST *proto, ExprAST *expr)
         : prototype(proto->clone()), expr(expr->clone()) { }
 
+FunctionAST::FunctionAST(ExprAST *expr)
+        : prototype(new PrototypeAST()), expr(expr->clone()) { }
+
 FunctionAST::FunctionAST(const FunctionAST& orig)
         : prototype(orig.prototype->clone()), expr(orig.expr->clone()) { }
 

@@ -18,3 +18,11 @@
 using namespace Galaxy;
 
 Error::Error() { }
+
+Error::Error(const std::string& message) : message(message) { }
+
+Error::~Error() { }
+
+const std::string& Error::getMessage() const {
+    return message;
+}

@@ -32,7 +32,11 @@ private:
 public:
     static Shell& getInstance();
     std::string readLine();
+
+    // Support printing results for multiple data types.
     void printResult(const std::string& result);
+    void printResult(int result);
+
     void printError(const std::string& error);
     void printPrompt(const std::string& prefix = ">>> ");
     void printGraphic();

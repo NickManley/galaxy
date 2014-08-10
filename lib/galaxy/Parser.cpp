@@ -17,7 +17,6 @@
 #include "galaxy/ast/BinaryExprAST.h"
 #include "galaxy/ast/NumberExprAST.h"
 #include "galaxy/Lexer.h"
-#include "galaxy/ParseError.h"
 #include "galaxy/Parser.h"
 using namespace Galaxy;
 

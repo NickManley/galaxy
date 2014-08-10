@@ -47,6 +47,13 @@ llvm::Function* CodeGenerator::getFunction(FunctionAST* func) {
     return (llvm::Function*)result;
 }
 
+llvm::Function* CodeGenerator::getFunction(ExprAST* expr) {
+    FunctionAST *f = new FunctionAST(expr);
+    llvm::Function *result = getFunction(f);
+    delete f;
+    return result;
+}
+
 // Do nothing for base class ExprAST.
 void CodeGenerator::visit(const ExprAST& ast) { }
 

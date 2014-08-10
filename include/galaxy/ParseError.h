@@ -20,7 +20,7 @@
 #include <string>
 
 namespace Galaxy {
-    
+
 enum class ParseErrorType {
     EXPECTED_BINOP,
     EXPECTED_BINOP_OR_END,
@@ -28,18 +28,17 @@ enum class ParseErrorType {
     EXPECTED_TERM,
     UNEXPECTED_TOKEN
 };
-    
+
 class ParseError : public Error {
 protected:
     ParseErrorType type;
-    std::string message;
 public:
     explicit ParseError();
     explicit ParseError(const ParseErrorType& type);
     explicit ParseError(const ParseErrorType& type,
     const std::string& message);
     virtual ~ParseError();
-    const std::string& getMessage() const;
+    virtual const std::string& getMessage() const;
     const ParseErrorType& getType() const;
 };
 

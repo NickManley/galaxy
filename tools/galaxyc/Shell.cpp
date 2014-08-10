@@ -15,7 +15,6 @@
 //===-----------------------------------------------------------------===//
 
 #include "Shell.h"
-#include "galaxy/Parser.h"
 #include <cstdio>
 using namespace Galaxy;
 
@@ -47,7 +46,13 @@ std::string Shell::readLine() {
 
 void Shell::printResult(const std::string& result) {
     llvm::outs().changeColor(llvm::raw_ostream::Colors::CYAN, true);
-    llvm::outs() << result << "\n";
+    llvm::outs() << " " << result << "\n";
+    llvm::outs().flush();
+}
+
+void Shell::printResult(int result) {
+    llvm::outs().changeColor(llvm::raw_ostream::Colors::CYAN, true);
+    llvm::outs() << " " << result << "\n";
     llvm::outs().flush();
 }
 

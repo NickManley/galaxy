@@ -30,10 +30,9 @@ class NumberExprAST;
 class PrototypeAST;
 
 class CodeGenerator : public ASTVisitor {
-protected:
+public:
     static llvm::IRBuilder<> builder;
     static llvm::Module* module;
-public:
     void* result;
 
     /// \brief Constructor.
@@ -48,6 +47,7 @@ public:
     llvm::Value* getValue(ExprAST *expr);
     llvm::Function* getPrototype(PrototypeAST *proto);
     llvm::Function* getFunction(FunctionAST *func);
+    llvm::Function* getFunction(ExprAST *expr);
 
     void visit(const ExprAST& ast);
     void visit(const BinaryExprAST& ast);
