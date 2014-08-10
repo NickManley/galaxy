@@ -15,7 +15,7 @@
 //===-----------------------------------------------------------------===//
 
 #ifndef GALAXY_PARSER_H
-#define	GALAXY_PARSER_H
+#define GALAXY_PARSER_H
 #include "galaxy/ast/BinaryExprAST.h"
 #include "galaxy/ast/NumberExprAST.h"
 #include "galaxy/ParseError.h"

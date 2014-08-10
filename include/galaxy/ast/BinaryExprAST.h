@@ -54,4 +54,4 @@ public:
 
 } // END namespace Galaxy
 
-#endif	// END ifndef GALAXY_AST_BINARYEXPRAST_H
+#endif // END ifndef GALAXY_AST_BINARYEXPRAST_H

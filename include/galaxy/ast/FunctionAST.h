@@ -15,7 +15,7 @@
 //===-----------------------------------------------------------------===//
 
 #ifndef GALAXY_AST_FUNCTIONAST_H
-#define	GALAXY_AST_FUNCTIONAST_H
+#define GALAXY_AST_FUNCTIONAST_H
 #include <llvm/Support/raw_ostream.h>
 #include <string>
 
@@ -67,4 +67,4 @@ llvm::raw_ostream& operator<<(llvm::raw_ostream& out,
 
 } // END namespace Galaxy
 
-#endif	// END ifndef GALAXY_AST_FUNCTIONAST_H
+#endif // END ifndef GALAXY_AST_FUNCTIONAST_H

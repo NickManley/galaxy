@@ -15,7 +15,7 @@
 //===-----------------------------------------------------------------===//
 
 #ifndef GALAXY_LEXER_H
-#define	GALAXY_LEXER_H
+#define GALAXY_LEXER_H
 #include "galaxy/SourceLocation.h"
 #include "galaxy/Token.h"
 

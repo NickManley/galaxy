@@ -15,7 +15,7 @@
 //===-----------------------------------------------------------------===//
 
 #ifndef SHELL_H
-#define	SHELL_H
+#define SHELL_H
 #include <llvm/Support/raw_ostream.h>
 #include <string>
 
@@ -44,4 +44,4 @@ public:
 
 } // END namespace Galaxy
 
-#endif	/* SHELL_H */
+#endif // END ifndef SHELL_H

@@ -15,7 +15,7 @@
 //===-----------------------------------------------------------------===//
 
 #ifndef GALAXY_AST_EXPRAST_H
-#define	GALAXY_AST_EXPRAST_H
+#define GALAXY_AST_EXPRAST_H
 #include <llvm/Support/raw_ostream.h>
 #include <string>
 
@@ -54,4 +54,4 @@ llvm::raw_ostream& operator<<(llvm::raw_ostream& out, const ExprAST& expr);
 
 } // END namespace Galaxy
 
-#endif	// END ifndef GALAXY_AST_EXPRAST_H
+#endif // END ifndef GALAXY_AST_EXPRAST_H

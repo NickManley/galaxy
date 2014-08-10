@@ -15,7 +15,7 @@
 //===-----------------------------------------------------------------===//
 
 #ifndef GALAXY_INTERPRETER_H
-#define	GALAXY_INTERPRETER_H
+#define GALAXY_INTERPRETER_H
 #include "galaxy/CodeGenerator.h"
 #include "galaxy/Error.h"
 #include <llvm/ExecutionEngine/ExecutionEngine.h>

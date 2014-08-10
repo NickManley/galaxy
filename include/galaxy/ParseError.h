@@ -15,7 +15,7 @@
 //===-----------------------------------------------------------------===//
 
 #ifndef GALAXY_PARSEERROR_H
-#define	GALAXY_PARSEERROR_H
+#define GALAXY_PARSEERROR_H
 #include "Error.h"
 #include <string>
 

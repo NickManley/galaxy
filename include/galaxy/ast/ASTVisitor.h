@@ -15,7 +15,7 @@
 //===-----------------------------------------------------------------===//
 
 #ifndef GALAXY_AST_ASTVISITOR_H
-#define	GALAXY_AST_ASTVISITOR_H
+#define GALAXY_AST_ASTVISITOR_H
 
 namespace Galaxy {
 
@@ -38,4 +38,4 @@ public:
 
 } // END namespace Galaxy
 
-#endif	// END ifndef GALAXY_AST_ASTVISITOR_H
+#endif // END ifndef GALAXY_AST_ASTVISITOR_H

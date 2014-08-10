@@ -15,7 +15,7 @@
 //===-----------------------------------------------------------------===//
 
 #ifndef GALAXY_ERROR_H
-#define	GALAXY_ERROR_H
+#define GALAXY_ERROR_H
 #include <string>
 
 namespace Galaxy {

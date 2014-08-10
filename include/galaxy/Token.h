@@ -15,7 +15,7 @@
 //===-----------------------------------------------------------------===//
 
 #ifndef GALAXY_TOKEN_H
-#define	GALAXY_TOKEN_H
+#define GALAXY_TOKEN_H
 #include <llvm/Support/raw_ostream.h>
 #include <map>
 #include <string>

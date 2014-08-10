@@ -15,7 +15,7 @@
 //===-----------------------------------------------------------------===//
 
 #ifndef GALAXY_SOURCELOCATION_H
-#define	GALAXY_SOURCELOCATION_H
+#define GALAXY_SOURCELOCATION_H
 #include <string>
 
 namespace Galaxy {

@@ -15,7 +15,7 @@
 //===-----------------------------------------------------------------===//
 
 #ifndef GALAXY_AST_NUMBEREXPRAST_H
-#define	GALAXY_AST_NUMBEREXPRAST_H
+#define GALAXY_AST_NUMBEREXPRAST_H
 #include "ExprAST.h"
 
 namespace Galaxy {
@@ -51,4 +51,4 @@ public:
 
 } // END namespace Galaxy
 
-#endif	// END ifndef GALAXY_AST_NUMBEREXPRAST_H
+#endif // END ifndef GALAXY_AST_NUMBEREXPRAST_H
