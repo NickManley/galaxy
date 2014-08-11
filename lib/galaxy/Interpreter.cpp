@@ -60,7 +60,7 @@ void* Interpreter::interpret(const std::string& input) {
         return NULL;
     }
     // Generate code
-    llvm::Function *func = codegen.getFunction(parseTree);
+    llvm::Function *func = codegen.generateFunction(parseTree);
     delete parseTree;
     return engine->getPointerToFunction(func);
 }

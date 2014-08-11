@@ -33,26 +33,26 @@ CodeGenerator::CodeGenerator(const CodeGenerator& orig) { }
 
 CodeGenerator::~CodeGenerator() { }
 
-llvm::Value* CodeGenerator::getValue(ExprAST *expr) {
+llvm::Value* CodeGenerator::generateValue(ExprAST* expr) {
     expr->accept(this);
     return (llvm::Value*)result;
 }
 
-llvm::Function* CodeGenerator::getPrototype(PrototypeAST* proto) {
-    proto->accept(this);
+llvm::Function* CodeGenerator::generateFunction(ExprAST* expr) {
+    FunctionAST *f = new FunctionAST(expr);
+    result = generateFunction(f);
+    delete f;
     return (llvm::Function*)result;
 }
 
-llvm::Function* CodeGenerator::getFunction(FunctionAST* func) {
+llvm::Function* CodeGenerator::generateFunction(FunctionAST* func) {
     func->accept(this);
     return (llvm::Function*)result;
 }
 
-llvm::Function* CodeGenerator::getFunction(ExprAST* expr) {
-    FunctionAST *f = new FunctionAST(expr);
-    llvm::Function *result = getFunction(f);
-    delete f;
-    return result;
+llvm::Function* CodeGenerator::generateFunction(PrototypeAST* proto) {
+    proto->accept(this);
+    return (llvm::Function*)result;
 }
 
 // Report error and exit for base class ExprAST.
@@ -67,8 +67,8 @@ void CodeGenerator::visit(const ExprAST& ast) {
 
 void CodeGenerator::visit(const BinaryExprAST& ast) {
     const unsigned bits = 32;
-    llvm::Value *leftValue = getValue(ast.getLhs());
-    llvm::Value *rightValue = getValue(ast.getRhs());
+    llvm::Value *leftValue = generateValue(ast.getLhs());
+    llvm::Value *rightValue = generateValue(ast.getRhs());
     const std::string& op = ast.getOp();
 
     if (op == "+") {
@@ -88,17 +88,17 @@ void CodeGenerator::visit(const BinaryExprAST& ast) {
 void CodeGenerator::visit(const FunctionAST& ast) {
     PrototypeAST *proto = ast.getPrototype();
     ExprAST *expr = ast.getExpr();
-    llvm::Function *func = this->getPrototype(proto);
+    llvm::Function *func = generateFunction(proto);
     llvm::BasicBlock *bb = llvm::BasicBlock::Create(
             llvm::getGlobalContext(), "entry", func);
     builder.SetInsertPoint(bb);
-    builder.CreateRet(this->getValue(expr));
+    builder.CreateRet(generateValue(expr));
     llvm::verifyFunction(*func);
     result = func;
 }
 
 void CodeGenerator::visit(const NegativeExprAST& ast) {
-    result = builder.CreateNeg(getValue(ast.getTerm()));
+    result = builder.CreateNeg(generateValue(ast.getTerm()));
 }
 
 void CodeGenerator::visit(const NumberExprAST& ast) {

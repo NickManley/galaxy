@@ -45,10 +45,10 @@ public:
     /// \brief Destructor.
     virtual ~CodeGenerator();
 
-    llvm::Value* getValue(ExprAST *expr);
-    llvm::Function* getPrototype(PrototypeAST *proto);
-    llvm::Function* getFunction(FunctionAST *func);
-    llvm::Function* getFunction(ExprAST *expr);
+    llvm::Value* generateValue(ExprAST *expr);
+    llvm::Function* generateFunction(ExprAST *expr);
+    llvm::Function* generateFunction(FunctionAST *func);
+    llvm::Function* generateFunction(PrototypeAST *proto);
 
     void visit(const ExprAST& ast);
     void visit(const BinaryExprAST& ast);
