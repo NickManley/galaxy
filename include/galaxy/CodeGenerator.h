@@ -26,6 +26,7 @@ namespace Galaxy {
 
 class BinaryExprAST;
 class FunctionAST;
+class NegativeExprAST;
 class NumberExprAST;
 class PrototypeAST;
 
@@ -52,6 +53,7 @@ public:
     void visit(const ExprAST& ast);
     void visit(const BinaryExprAST& ast);
     void visit(const FunctionAST& ast);
+    void visit(const NegativeExprAST& ast);
     void visit(const NumberExprAST& ast);
     void visit(const PrototypeAST& ast);
 };

@@ -44,6 +44,6 @@ alpha = (letter | capital) , { letter | capital }
 binop = "+" | "-" | "*" | "/" ;
 
 expression = term , { binop , term } ;
-term = number | "(", expression, ")" | "-", number ;
+term = number | "(", expression, ")" | "-", term ;
 number = digit , { digit } ;
 ```

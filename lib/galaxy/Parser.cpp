@@ -15,6 +15,7 @@
 //===-----------------------------------------------------------------===//
 
 #include "galaxy/ast/BinaryExprAST.h"
+#include "galaxy/ast/NegativeExprAST.h"
 #include "galaxy/ast/NumberExprAST.h"
 #include "galaxy/Lexer.h"
 #include "galaxy/Parser.h"
@@ -49,22 +50,22 @@ ExprAST* Parser::parseExpr() {
     return parseBinaryExpr(0, expr);
 }
 
-NumberExprAST* Parser::parseNumberExpr() {
+ExprAST* Parser::parseNumberExpr() {
     Token token = lexer->consume();
     if (token.getValue() == "-") { return parseNegativeExpr(); }
     assert(token.getType() == TokenType::NUMBER);
     return new NumberExprAST(token.getValue());
 }
 
-NumberExprAST* Parser::parseNegativeExpr() {
-    Token token = lexer->consume();
-    if (token.getType() != TokenType::NUMBER) {
-        errors.push_back(new ParseError(ParseErrorType::EXPECTED_NUMBER,
+ExprAST* Parser::parseNegativeExpr() {
+    ExprAST *term = parseTerm();
+    if (!term) {
+        errors.push_back(new ParseError(ParseErrorType::EXPECTED_TERM,
                 "Syntax Error (" + lexer->location().toString() +
-                "): Expected number after unary minus."));
+                "): Expected term after unary minus."));
         return NULL;
     }
-    return new NumberExprAST("-" + token.getValue());
+    return new NegativeExprAST(term);
 }
 
 ExprAST* Parser::parseTerm() {

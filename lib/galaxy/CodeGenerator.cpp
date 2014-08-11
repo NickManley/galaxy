@@ -16,6 +16,7 @@
 
 #include "galaxy/ast/BinaryExprAST.h"
 #include "galaxy/ast/FunctionAST.h"
+#include "galaxy/ast/NegativeExprAST.h"
 #include "galaxy/ast/NumberExprAST.h"
 #include "galaxy/ast/PrototypeAST.h"
 #include "galaxy/CodeGenerator.h"
@@ -54,8 +55,15 @@ llvm::Function* CodeGenerator::getFunction(ExprAST* expr) {
     return result;
 }
 
-// Do nothing for base class ExprAST.
-void CodeGenerator::visit(const ExprAST& ast) { }
+// Report error and exit for base class ExprAST.
+// If we got here, then it means the virtual methods
+// for the visitor pattern weren't declared/defined
+// properly.
+void CodeGenerator::visit(const ExprAST& ast) {
+    llvm::errs() << "FATAL: ASTVisitor not properly declared!\n";
+    llvm::errs().flush();
+    exit(1);
+}
 
 void CodeGenerator::visit(const BinaryExprAST& ast) {
     const unsigned bits = 32;
@@ -87,6 +95,10 @@ void CodeGenerator::visit(const FunctionAST& ast) {
     builder.CreateRet(this->getValue(expr));
     llvm::verifyFunction(*func);
     result = func;
+}
+
+void CodeGenerator::visit(const NegativeExprAST& ast) {
+    result = builder.CreateNeg(getValue(ast.getTerm()));
 }
 
 void CodeGenerator::visit(const NumberExprAST& ast) {
