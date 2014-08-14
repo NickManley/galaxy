@@ -46,6 +46,8 @@ public:
     /// \details Popping is done via FIFO (First in, First out).
     /// This way the errors are returned in the order in which
     /// they were detected.
+    /// \warning The caller is responsible for calling delete
+    /// on the returned Error* to free memory.
     Error* popError();
 };
 

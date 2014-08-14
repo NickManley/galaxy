@@ -41,6 +41,7 @@ void runREPL() {
             Error *err;
             while ((err = interpreter.popError())) {
                 shell.printError(err->getMessage());
+                delete err;
             }
             continue;
         }
