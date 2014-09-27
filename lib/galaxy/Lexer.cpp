@@ -15,6 +15,7 @@
 //===-----------------------------------------------------------------===//
 
 #include "galaxy/Lexer.h"
+#include <cassert>
 using namespace Galaxy;
 
 Lexer::Lexer(const std::string& input)
@@ -76,6 +77,9 @@ Token Lexer::lexToken() {
         loc.col++;
         return Token(src[idx++], TokenType::PAREN);
     }
+    if (Lexer::isAlpha(src[idx])) {
+        return lexIdent();
+    }
     return Token(TokenType::ERR);
 }
 
@@ -94,12 +98,32 @@ Token Lexer::lexNumber() {
     return Token(result, TokenType::NUMBER);
 }
 
+Token Lexer::lexIdent() {
+    assert(isAlpha(src[idx]));
+    std::string result;
+    for (auto it = src.cbegin()+idx; isAlphaNumeric(*it); it++) {
+        result.append(1, *it);
+        idx++;
+        loc.col++;
+    }
+    return Token(result, TokenType::IDENT);
+}
+
+bool Lexer::isAlpha(char c) {
+    return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
+}
+
+bool Lexer::isAlphaNumeric(char c) {
+    return isAlpha(c) || isDigit(c);
+}
+
 bool Lexer::isDigit(char c) {
     return c >= '0' && c <= '9';
 }
 
 bool Lexer::isBinOp(char c) {
-    return c == '+'
+    return c == '='
+        || c == '+'
         || c == '-'
         || c == '*'
         || c == '/';

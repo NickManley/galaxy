@@ -35,6 +35,8 @@ public:
     /// \brief Destructor.
     virtual ~NegativeExprAST();
 
+    static bool classof(const ExprAST* ast);
+
     ExprAST* getTerm() const;
 
     /// \brief Clone method.

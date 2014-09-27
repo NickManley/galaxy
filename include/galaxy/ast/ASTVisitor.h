@@ -25,6 +25,7 @@ class FunctionAST;
 class NegativeExprAST;
 class NumberExprAST;
 class PrototypeAST;
+class VariableExprAST;
 
 class ASTVisitor {
 public:
@@ -35,6 +36,7 @@ public:
     virtual void visit(const NegativeExprAST& ast) = 0;
     virtual void visit(const NumberExprAST& ast) = 0;
     virtual void visit(const PrototypeAST& ast) = 0;
+    virtual void visit(const VariableExprAST& ast) = 0;
 
 }; // END class ASTVisitor
 

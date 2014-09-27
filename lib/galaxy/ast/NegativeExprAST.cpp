@@ -18,12 +18,17 @@
 #include "galaxy/ast/NegativeExprAST.h"
 using namespace Galaxy;
 
-NegativeExprAST::NegativeExprAST(ExprAST* term) : term(term) { }
+NegativeExprAST::NegativeExprAST(ExprAST* term)
+        : ExprAST(ExprAST::Kind::NEGATIVE), term(term) { }
 
 NegativeExprAST::NegativeExprAST(const NegativeExprAST& orig)
         : ExprAST(orig), term(orig.term) { }
 
 NegativeExprAST::~NegativeExprAST() { }
+
+bool NegativeExprAST::classof(const ExprAST* ast) {
+    return ast->getKind() == ExprAST::Kind::NEGATIVE;
+}
 
 ExprAST* NegativeExprAST::getTerm() const {
     return term;

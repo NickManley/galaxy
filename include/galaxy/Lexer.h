@@ -47,9 +47,12 @@ protected:
     Token lexToken();
     Token lexBinOp();
     Token lexNumber();
+    Token lexIdent();
 
     /// \name string utility methods
     /// @{
+    static bool isAlpha(char c);
+    static bool isAlphaNumeric(char c);
     static bool isDigit(char c);
     static bool isBinOp(char c);
     static bool isWhitespace(char c);

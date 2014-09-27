@@ -19,12 +19,16 @@
 using namespace Galaxy;
 
 NumberExprAST::NumberExprAST(const std::string& value)
-    : value(value) { }
+    : ExprAST(ExprAST::Kind::NUMBER), value(value) { }
 
 NumberExprAST::NumberExprAST(const NumberExprAST& orig)
     : ExprAST(orig), value(orig.value) { }
 
 NumberExprAST::~NumberExprAST() { }
+
+bool NumberExprAST::classof(const ExprAST* ast) {
+    return ast->getKind() == ExprAST::Kind::NUMBER;
+}
 
 const std::string& NumberExprAST::getValue() const {
     return this->value;

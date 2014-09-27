@@ -18,11 +18,15 @@
 #include "galaxy/ast/ExprAST.h"
 using namespace Galaxy;
 
-ExprAST::ExprAST() { }
+ExprAST::ExprAST(const ExprAST::Kind& kind) : kind(kind) { }
 
-ExprAST::ExprAST(const ExprAST& orig) { }
+ExprAST::ExprAST(const ExprAST& orig) : kind(orig.getKind()) { }
 
 ExprAST::~ExprAST() { }
+
+const ExprAST::Kind& ExprAST::getKind() const {
+    return kind;
+}
 
 ExprAST* ExprAST::clone() const {
     return new ExprAST(*this);

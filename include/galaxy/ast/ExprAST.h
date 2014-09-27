@@ -25,14 +25,25 @@ class ASTVisitor;
 
 class ExprAST {
 public:
+    enum class Kind {
+        BINARY,
+        NEGATIVE,
+        NUMBER,
+        VARIABLE
+    };
+private:
+    const Kind kind;
+public:
     /// \brief Constructor.
-    explicit ExprAST();
+    explicit ExprAST(const ExprAST::Kind& kind);
 
     /// \brief Copy constructor.
     ExprAST(const ExprAST& orig);
 
     /// \brief Destructor.
     virtual ~ExprAST();
+
+    const ExprAST::Kind& getKind() const;
 
     /// \brief Clone method.
     /// \details caller is responsible for calling

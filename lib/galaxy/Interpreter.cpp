@@ -62,6 +62,13 @@ void* Interpreter::interpret(const std::string& input) {
     // Generate code
     llvm::Function *func = codegen.generateFunction(parseTree);
     delete parseTree;
+    if (!func) {
+        CodeGenError *err;
+        while ((err = codegen.popError())) {
+            errors.push_back(err);
+        }
+        return NULL;
+    }
     return engine->getPointerToFunction(func);
 }
 

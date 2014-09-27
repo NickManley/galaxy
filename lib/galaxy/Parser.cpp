@@ -17,6 +17,7 @@
 #include "galaxy/ast/BinaryExprAST.h"
 #include "galaxy/ast/NegativeExprAST.h"
 #include "galaxy/ast/NumberExprAST.h"
+#include "galaxy/ast/VariableExprAST.h"
 #include "galaxy/Lexer.h"
 #include "galaxy/Parser.h"
 using namespace Galaxy;
@@ -74,6 +75,9 @@ ExprAST* Parser::parseTerm() {
             || token.getValue() == "-") {
         return parseNumberExpr();
     }
+    if (token.getType() == TokenType::IDENT) {
+        return new VariableExprAST(lexer->consume().getValue());
+    }
     if (token.getValue() == "(") {
         lexer->consume(); // eat '('
         ExprAST *expr = parseExpr();
@@ -90,11 +94,22 @@ ExprAST* Parser::parseBinaryExpr(int prec, ExprAST *lhs) {
     while (true) {
         Token op = lexer->consume();
         if (isEndOfExpr(op)) { break; }
+
         if (op.getType() != TokenType::BINOP) {
             errors.push_back(new ParseError(
                     ParseErrorType::EXPECTED_BINOP_OR_END,
                     "Syntax Error (" + lexer->location().toString() +
                     "): Expected binary operator or end of expression."));
+            delete lhs;
+            return NULL;
+        }
+
+        if (op.getValue() == "="
+                && lhs->getKind() != ExprAST::Kind::VARIABLE) {
+            errors.push_back(new ParseError(
+                    ParseErrorType::EXPECTED_IDENT_LHS,
+                    "Syntax Error (" + lexer->location().toString() +
+                    "): Expected identifier for assignment."));
             delete lhs;
             return NULL;
         }

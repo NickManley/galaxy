@@ -17,10 +17,12 @@
 #ifndef GALAXY_CODEGENERATOR_H
 #define GALAXY_CODEGENERATOR_H
 #include "galaxy/ast/ASTVisitor.h"
+#include "galaxy/CodeGenError.h"
 #include <llvm/Analysis/Verifier.h>
 #include <llvm/IR/DerivedTypes.h>
 #include <llvm/IR/IRBuilder.h>
 #include <llvm/IR/Module.h>
+#include <list>
 
 namespace Galaxy {
 
@@ -29,11 +31,14 @@ class FunctionAST;
 class NegativeExprAST;
 class NumberExprAST;
 class PrototypeAST;
+class VariableExprAST;
 
 class CodeGenerator : public ASTVisitor {
 public:
     static llvm::IRBuilder<> builder;
     static llvm::Module* module;
+    static std::map<std::string, llvm::Value*> namedValues;
+    std::list<CodeGenError*> errors;
     void* result;
 
     /// \brief Constructor.
@@ -56,6 +61,9 @@ public:
     void visit(const NegativeExprAST& ast);
     void visit(const NumberExprAST& ast);
     void visit(const PrototypeAST& ast);
+    void visit(const VariableExprAST& ast);
+
+    CodeGenError* popError();
 };
 
 } // END namespace Galaxy

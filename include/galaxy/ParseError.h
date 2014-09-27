@@ -26,6 +26,7 @@ enum class ParseErrorType {
     EXPECTED_BINOP_OR_END,
     EXPECTED_NUMBER,
     EXPECTED_TERM,
+    EXPECTED_IDENT_LHS,
     UNEXPECTED_TOKEN
 };
 

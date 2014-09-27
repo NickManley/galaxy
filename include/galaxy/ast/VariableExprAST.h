@@ -1,4 +1,4 @@
-//===-- include/galaxy/ast/NumberExprAST.h -----------------*- C++ -*-===//
+//===-- include/galaxy/ast/VariableExprAST.h ---------------*- C++ -*-===//
 //
 //                     The Galaxy Programming Language
 //
@@ -8,35 +8,36 @@
 //===-----------------------------------------------------------------===//
 ///
 /// \file
-/// \brief This file contains the declaration of the NumberExprAST class.
+/// \brief This file contains the declaration of the
+/// VariableExprAST class.
 /// \author Nicholas E. Manley
 /// \copyright ISC License
 ///
 //===-----------------------------------------------------------------===//
 
-#ifndef GALAXY_AST_NUMBEREXPRAST_H
-#define GALAXY_AST_NUMBEREXPRAST_H
+#ifndef GALAXY_AST_VARIABLEEXPRAST_H
+#define GALAXY_AST_VARIABLEEXPRAST_H
 #include "ExprAST.h"
 
 namespace Galaxy {
 
-class NumberExprAST : public ExprAST {
+class VariableExprAST : public ExprAST {
 protected:
-    const std::string value;
+    const std::string name;
 
 public:
     /// \brief Constructor.
-    explicit NumberExprAST(const std::string& value);
+    explicit VariableExprAST(const std::string& name);
 
     /// \brief Copy constructor.
-    NumberExprAST(const NumberExprAST& orig);
+    VariableExprAST(const VariableExprAST& orig);
 
     /// \brief Destructor.
-    virtual ~NumberExprAST();
+    virtual ~VariableExprAST();
 
     static bool classof(const ExprAST* ast);
 
-    const std::string& getValue() const;
+    const std::string& getName() const;
 
     /// \brief Clone method.
     /// \details caller is responsible for calling
@@ -49,8 +50,8 @@ public:
     /// \brief Method to accept visitors.
     virtual void accept(ASTVisitor* visitor);
 
-}; // END class NumberExprAST
+}; // END class VariableExprAST
 
 } // END namespace Galaxy
 
-#endif // END ifndef GALAXY_AST_NUMBEREXPRAST_H
+#endif // END ifndef GALAXY_AST_VARIABLEEXPRAST_H

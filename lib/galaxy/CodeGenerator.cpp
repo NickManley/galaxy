@@ -19,6 +19,7 @@
 #include "galaxy/ast/NegativeExprAST.h"
 #include "galaxy/ast/NumberExprAST.h"
 #include "galaxy/ast/PrototypeAST.h"
+#include "galaxy/ast/VariableExprAST.h"
 #include "galaxy/CodeGenerator.h"
 using namespace Galaxy;
 
@@ -26,6 +27,7 @@ llvm::IRBuilder<> CodeGenerator::builder =
         llvm::IRBuilder<>(llvm::getGlobalContext());
 llvm::Module* CodeGenerator::module = new llvm::Module("GX",
         llvm::getGlobalContext());
+std::map<std::string, llvm::Value*> CodeGenerator::namedValues;
 
 CodeGenerator::CodeGenerator() { }
 
@@ -71,7 +73,35 @@ void CodeGenerator::visit(const BinaryExprAST& ast) {
     llvm::Value *rightValue = generateValue(ast.getRhs());
     const std::string& op = ast.getOp();
 
-    if (op == "+") {
+    // Check for undefined variables.
+    if (op != "=" && (!leftValue || !rightValue)) {
+        VariableExprAST *var;
+
+        // check left side.
+        var = llvm::dyn_cast<VariableExprAST>(ast.getLhs());
+        if(!leftValue && var) {
+            errors.push_back(new CodeGenError(
+                    CodeGenErrorType::UNDEFINED_VARIABLE,
+                    "Undefined variable: " + var->toString()));
+        }
+
+        // check right side.
+        var = llvm::dyn_cast<VariableExprAST>(ast.getRhs());
+        if(!rightValue && var) {
+            errors.push_back(new CodeGenError(
+                    CodeGenErrorType::UNDEFINED_VARIABLE,
+                    "Undefined variable: " + var->toString()));
+        }
+
+        result = NULL;
+        return;
+    }
+
+    if (op == "=") {
+        VariableExprAST *var = llvm::dyn_cast<VariableExprAST>(ast.getLhs());
+        assert(var);
+        result = namedValues[var->getName()] = rightValue;
+    } else if (op == "+") {
         result = builder.CreateAdd(leftValue, rightValue, "addtmp");
     } else if (op == "-") {
         result = builder.CreateSub(leftValue, rightValue, "subtmp");
@@ -92,7 +122,13 @@ void CodeGenerator::visit(const FunctionAST& ast) {
     llvm::BasicBlock *bb = llvm::BasicBlock::Create(
             llvm::getGlobalContext(), "entry", func);
     builder.SetInsertPoint(bb);
-    builder.CreateRet(generateValue(expr));
+
+    llvm::Value *val = generateValue(expr);
+    if (!val) {
+        return;
+    }
+
+    builder.CreateRet(val);
     llvm::verifyFunction(*func);
     result = func;
 }
@@ -120,4 +156,17 @@ void CodeGenerator::visit(const PrototypeAST& ast) {
     // Create the function itself.
     result = llvm::Function::Create(funcType,
             llvm::Function::ExternalLinkage, ast.getName(), module);
+}
+
+void CodeGenerator::visit(const VariableExprAST& ast) {
+    result = namedValues[ast.getName()];
+}
+
+CodeGenError* CodeGenerator::popError() {
+    if (errors.size() > 0) {
+        auto e = errors.front();
+        errors.pop_front();
+        return e;
+    }
+    return NULL;
 }
