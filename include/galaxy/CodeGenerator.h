@@ -37,7 +37,7 @@ class CodeGenerator : public ASTVisitor {
 public:
     static llvm::IRBuilder<> builder;
     static llvm::Module* module;
-    static std::map<std::string, llvm::Value*> namedValues;
+    static std::map<std::string, llvm::GlobalVariable*> globalValues;
     std::list<CodeGenError*> errors;
     void* result;
 

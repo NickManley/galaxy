@@ -27,7 +27,7 @@ llvm::IRBuilder<> CodeGenerator::builder =
         llvm::IRBuilder<>(llvm::getGlobalContext());
 llvm::Module* CodeGenerator::module = new llvm::Module("GX",
         llvm::getGlobalContext());
-std::map<std::string, llvm::Value*> CodeGenerator::namedValues;
+std::map<std::string, llvm::GlobalVariable*> CodeGenerator::globalValues;
 
 CodeGenerator::CodeGenerator() { }
 
@@ -100,7 +100,9 @@ void CodeGenerator::visit(const BinaryExprAST& ast) {
     if (op == "=") {
         VariableExprAST *var = llvm::dyn_cast<VariableExprAST>(ast.getLhs());
         assert(var);
-        result = namedValues[var->getName()] = rightValue;
+        globalValues[var->getName()]->setInitializer(
+                llvm::cast<llvm::ConstantInt>(rightValue));
+        result = globalValues[var->getName()]->getInitializer();
     } else if (op == "+") {
         result = builder.CreateAdd(leftValue, rightValue, "addtmp");
     } else if (op == "-") {
@@ -159,7 +161,17 @@ void CodeGenerator::visit(const PrototypeAST& ast) {
 }
 
 void CodeGenerator::visit(const VariableExprAST& ast) {
-    result = namedValues[ast.getName()];
+    llvm::GlobalVariable *val = globalValues[ast.getName()];
+    if(!val) {
+        globalValues[ast.getName()] = new llvm::GlobalVariable(*module,
+                llvm::Type::getInt32Ty(llvm::getGlobalContext()),
+                false,
+                llvm::GlobalValue::LinkerPrivateLinkage,
+                llvm::ConstantInt::get(llvm::getGlobalContext(),
+                        llvm::APInt(32, 0, 10)),
+                ast.getName().c_str());
+    }
+    result = globalValues[ast.getName()]->getInitializer();
 }
 
 CodeGenError* CodeGenerator::popError() {

@@ -41,9 +41,10 @@ capital = "A"|"B"|"C"|"D"|"E"|"F"|"G"|"H"|"I"|"J"|
           "K"|"L"|"M"|"N"|"O"|"P"|"Q"|"R"|"S"|"T"|
           "U"|"V"|"W"|"X"|"Y"|"Z" ;
 alpha = (letter | capital) , { letter | capital }
-binop = "+" | "-" | "*" | "/" ;
+binop = "=" | "+" | "-" | "*" | "/" ;
 
 expression = term , { binop , term } ;
 term = number | "(", expression, ")" | "-", term ;
 number = digit , { digit } ;
+ident = alpha , { alpha | digit } ;
 ```
