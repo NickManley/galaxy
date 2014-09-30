@@ -18,7 +18,6 @@
 #include "galaxy/Interpreter.h"
 #include "galaxy/Error.h"
 #include "Shell.h"
-#include <sstream>
 using namespace Galaxy;
 
 void runREPL();
@@ -35,7 +34,7 @@ void runREPL() {
     while (true) {
         shell.printPrompt();
         std::string input = shell.readLine();
-        if (input == "exit" || input == "quit") { exit(0); }
+        if (input == "exit" || input == "quit") { break; }
         void *result = interpreter.interpret(input);
         if (!result) {
             Error *err;

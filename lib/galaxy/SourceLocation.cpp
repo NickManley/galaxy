@@ -23,6 +23,9 @@ SourceLocation::SourceLocation() : line(0), col(0) { }
 SourceLocation::SourceLocation(size_t line, size_t col)
         : line(line), col(col) { }
 
+SourceLocation::SourceLocation(const SourceLocation& orig)
+        : line(orig.line), col(orig.col) { }
+
 std::string SourceLocation::toString() const {
     std::string s;
     llvm::raw_string_ostream rso(s);

@@ -71,6 +71,10 @@ public:
     ParseError* popError();
 
 protected:
+
+    /// \brief Performs a deep copy on the list of errors.
+    static std::list<ParseError*> copyErrors(std::list<ParseError*> errors);
+
     /// \name utility methods
     /// @{
     static bool isEndOfExpr(const Token& t);

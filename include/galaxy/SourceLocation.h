@@ -25,6 +25,7 @@ public:
     size_t line, col;
     explicit SourceLocation();
     explicit SourceLocation(size_t line, size_t col);
+    SourceLocation(const SourceLocation& orig);
     std::string toString() const;
 };
 

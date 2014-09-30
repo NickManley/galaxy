@@ -53,8 +53,8 @@ Token Lexer::peekAhead() {
     return token;
 }
 
-const SourceLocation& Lexer::location() {
-    return loc;
+const SourceLocation Lexer::location() {
+    return SourceLocation(loc);
 }
 
 Token Lexer::lexToken() {
@@ -63,8 +63,13 @@ Token Lexer::lexToken() {
         return Token(TokenType::END_FILE);
     }
     if (Lexer::isWhitespace(src[idx])) {
+        if (src[idx] == '\n') {
+            loc.line++;
+            loc.col = 0;
+        } else {
+            loc.col++;
+        }
         idx++;
-        loc.col++;
         goto lexToken_start;
     }
     if (Lexer::isDigit(src[idx])) {
@@ -101,7 +106,7 @@ Token Lexer::lexNumber() {
 Token Lexer::lexIdent() {
     assert(isAlpha(src[idx]));
     std::string result;
-    for (auto it = src.cbegin()+idx; isAlphaNumeric(*it); it++) {
+    for (auto it = src.cbegin()+idx; isAlphaOrDigit(*it); it++) {
         result.append(1, *it);
         idx++;
         loc.col++;
@@ -113,12 +118,12 @@ bool Lexer::isAlpha(char c) {
     return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
 }
 
-bool Lexer::isAlphaNumeric(char c) {
-    return isAlpha(c) || isDigit(c);
-}
-
 bool Lexer::isDigit(char c) {
     return c >= '0' && c <= '9';
+}
+
+bool Lexer::isAlphaOrDigit(char c) {
+    return isAlpha(c) || isDigit(c);
 }
 
 bool Lexer::isBinOp(char c) {

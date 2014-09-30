@@ -41,10 +41,12 @@ capital = "A"|"B"|"C"|"D"|"E"|"F"|"G"|"H"|"I"|"J"|
           "K"|"L"|"M"|"N"|"O"|"P"|"Q"|"R"|"S"|"T"|
           "U"|"V"|"W"|"X"|"Y"|"Z" ;
 alpha = (letter | capital) , { letter | capital }
-binop = "=" | "+" | "-" | "*" | "/" ;
+binop = "+" | "-" | "*" | "/" ;
 
-expression = term , { binop , term } ;
-term = number | "(", expression, ")" | "-", term ;
+expr = term , { binop , term } ;
+term = number | ident | "(", expr, ")" | "-", term ;
 number = digit , { digit } ;
 ident = alpha , { alpha | digit } ;
+
+assignment = ident , "=" , expr ;
 ```

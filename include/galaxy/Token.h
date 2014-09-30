@@ -1,4 +1,4 @@
-//===-- Token.h - Token class declaration ------------------*- C++ -*-===//
+//===-- include/galaxy/Token.h - Token class declaration ---*- C++ -*-===//
 //
 //                     The Galaxy Programming Language
 //

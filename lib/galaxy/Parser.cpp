@@ -26,7 +26,8 @@ Parser::Parser(const std::string& src)
         : lexer(new Lexer(src)) { }
 
 Parser::Parser(const Parser& orig)
-        : lexer(new Lexer(*(orig.lexer))), errors(orig.errors) { }
+        : lexer(new Lexer(*(orig.lexer))),
+        errors(Parser::copyErrors(orig.errors)) { }
 
 Parser::~Parser() {
     delete lexer;
@@ -118,6 +119,7 @@ ExprAST* Parser::parseBinaryExpr(int prec, ExprAST *lhs) {
         // weaker precedence than the previous one (prec),
         // then we return the left-hand side as its own ExprAST.
         if (op.getPrec() < prec) { return lhs; }
+
         // Parse the right hand side of the expression.
         ExprAST *rhs = parseTerm();
         if (!rhs) {
@@ -149,6 +151,14 @@ ParseError* Parser::popError() {
         return e;
     }
     return NULL;
+}
+
+std::list<ParseError*> Parser::copyErrors(std::list<ParseError*> errors) {
+    std::list<ParseError*> errorsCopy;
+    for (auto e : errors) {
+        errorsCopy.push_back((ParseError*)e->clone());
+    }
+    return errorsCopy;
 }
 
 bool Parser::isEndOfExpr(const Token& t) {
