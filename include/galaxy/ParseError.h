@@ -39,6 +39,7 @@ public:
     explicit ParseError(const ParseErrorType& type,
     const std::string& message);
     virtual ~ParseError();
+    virtual Error* clone() const;
     virtual const std::string& getMessage() const;
     const ParseErrorType& getType() const;
 };

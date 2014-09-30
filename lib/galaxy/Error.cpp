@@ -23,6 +23,10 @@ Error::Error(const std::string& message) : message(message) { }
 
 Error::~Error() { }
 
+Error* Error::clone() const {
+    return new Error(*this);
+}
+
 const std::string& Error::getMessage() const {
     return message;
 }

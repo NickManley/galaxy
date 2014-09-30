@@ -28,6 +28,10 @@ ParseError::ParseError(const ParseErrorType& type,
 
 ParseError::~ParseError() { }
 
+Error* ParseError::clone() const {
+    return new ParseError(*this);
+}
+
 const std::string& ParseError::getMessage() const {
     return message;
 }

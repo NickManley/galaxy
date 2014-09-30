@@ -27,6 +27,7 @@ public:
     explicit Error();
     explicit Error(const std::string& message);
     virtual ~Error();
+    virtual Error* clone() const;
     virtual const std::string& getMessage() const;
 };
 
