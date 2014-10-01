@@ -56,7 +56,7 @@ protected:
     Token lexToken();
     Token lexBinOp();
     Token lexNumber();
-    Token lexIdent();
+    Token lexIdentOrKeyword();
 
     /// \name string utility methods
     /// @{

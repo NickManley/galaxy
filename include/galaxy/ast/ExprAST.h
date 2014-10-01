@@ -16,26 +16,17 @@
 
 #ifndef GALAXY_AST_EXPRAST_H
 #define GALAXY_AST_EXPRAST_H
-#include <llvm/Support/raw_ostream.h>
-#include <string>
+#include "ASTNode.h"
 
 namespace Galaxy {
 
-class ASTVisitor;
-
-class ExprAST {
-public:
-    enum class Kind {
-        BINARY,
-        NEGATIVE,
-        NUMBER,
-        VARIABLE
-    };
-private:
-    const Kind kind;
+class ExprAST : public ASTNode {
 public:
     /// \brief Constructor.
-    explicit ExprAST(const ExprAST::Kind& kind);
+    explicit ExprAST();
+    
+    /// \brief Constructor with KIND.
+    explicit ExprAST(const ASTNode::Kind& kind);
 
     /// \brief Copy constructor.
     ExprAST(const ExprAST& orig);
@@ -43,7 +34,7 @@ public:
     /// \brief Destructor.
     virtual ~ExprAST();
 
-    const ExprAST::Kind& getKind() const;
+    static bool classof(const ASTNode* node);
 
     /// \brief Clone method.
     /// \details caller is responsible for calling
@@ -56,9 +47,6 @@ public:
     /// \brief Method to accept visitors.
     virtual void accept(ASTVisitor* visitor);
 
-    /// \brief Overload stream insertion operator.
-    friend llvm::raw_ostream& Galaxy::operator<<(
-        llvm::raw_ostream& out, const ExprAST& expr);
 }; // END class ExprAST
 
 llvm::raw_ostream& operator<<(llvm::raw_ostream& out, const ExprAST& expr);

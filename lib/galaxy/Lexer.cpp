@@ -83,7 +83,7 @@ Token Lexer::lexToken() {
         return Token(src[idx++], TokenType::PAREN);
     }
     if (Lexer::isAlpha(src[idx])) {
-        return lexIdent();
+        return lexIdentOrKeyword();
     }
     return Token(TokenType::ERR);
 }
@@ -103,13 +103,16 @@ Token Lexer::lexNumber() {
     return Token(result, TokenType::NUMBER);
 }
 
-Token Lexer::lexIdent() {
+Token Lexer::lexIdentOrKeyword() {
     assert(isAlpha(src[idx]));
     std::string result;
     for (auto it = src.cbegin()+idx; isAlphaOrDigit(*it); it++) {
         result.append(1, *it);
         idx++;
         loc.col++;
+    }
+    if (result == "let" || result == "var") {
+        return Token(result, TokenType::KEYWORD);
     }
     return Token(result, TokenType::IDENT);
 }

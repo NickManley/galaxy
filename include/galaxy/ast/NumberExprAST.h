@@ -41,7 +41,7 @@ public:
     /// \brief Clone method.
     /// \details caller is responsible for calling
     /// delete on returned pointer.
-    virtual ExprAST* clone() const;
+    virtual NumberExprAST* clone() const;
 
     /// \brief Convert to std::string.
     virtual std::string toString() const;

@@ -20,7 +20,7 @@ using namespace Galaxy;
 
 BinaryExprAST::BinaryExprAST(const std::string op,
     ExprAST *lhs, ExprAST *rhs)
-    : ExprAST(ExprAST::Kind::BINARY), op(op), lhs(lhs), rhs(rhs) { }
+    : ExprAST(ASTNode::Kind::BINARY_EXPR), op(op), lhs(lhs), rhs(rhs) { }
 
 BinaryExprAST::BinaryExprAST(const BinaryExprAST& orig)
     : ExprAST(orig), op(orig.op),
@@ -32,10 +32,10 @@ BinaryExprAST::~BinaryExprAST() {
 }
 
 bool BinaryExprAST::classof(const ExprAST* ast) {
-    return ast->getKind() == ExprAST::Kind::BINARY;
+    return ast->getKind() == ASTNode::Kind::BINARY_EXPR;
 }
 
-ExprAST* BinaryExprAST::clone() const {
+BinaryExprAST* BinaryExprAST::clone() const {
     return new BinaryExprAST(*this);
 }
 

@@ -57,11 +57,11 @@ llvm::Function* CodeGenerator::generateFunction(PrototypeAST* proto) {
     return (llvm::Function*)result;
 }
 
-// Report error and exit for base class ExprAST.
+// Report error and exit for base class ASTNode.
 // If we got here, then it means the virtual methods
 // for the visitor pattern weren't declared/defined
 // properly.
-void CodeGenerator::visit(const ExprAST& ast) {
+void CodeGenerator::visit(const ASTNode& ast) {
     llvm::errs() << "FATAL: ASTVisitor not properly declared!\n";
     llvm::errs().flush();
     exit(1);

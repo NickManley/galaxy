@@ -19,7 +19,7 @@
 
 namespace Galaxy {
 
-class ExprAST;
+class ASTNode;
 class BinaryExprAST;
 class FunctionAST;
 class NegativeExprAST;
@@ -30,7 +30,7 @@ class VariableExprAST;
 class ASTVisitor {
 public:
     virtual ~ASTVisitor() { }
-    virtual void visit(const ExprAST& ast) = 0;
+    virtual void visit(const ASTNode& ast) = 0;
     virtual void visit(const BinaryExprAST& ast) = 0;
     virtual void visit(const FunctionAST& ast) = 0;
     virtual void visit(const NegativeExprAST& ast) = 0;

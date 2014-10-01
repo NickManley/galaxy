@@ -19,7 +19,7 @@
 using namespace Galaxy;
 
 NegativeExprAST::NegativeExprAST(ExprAST* term)
-        : ExprAST(ExprAST::Kind::NEGATIVE), term(term) { }
+        : ExprAST(ASTNode::Kind::NEGATIVE_EXPR), term(term) { }
 
 NegativeExprAST::NegativeExprAST(const NegativeExprAST& orig)
         : ExprAST(orig), term(orig.term) { }
@@ -27,14 +27,14 @@ NegativeExprAST::NegativeExprAST(const NegativeExprAST& orig)
 NegativeExprAST::~NegativeExprAST() { }
 
 bool NegativeExprAST::classof(const ExprAST* ast) {
-    return ast->getKind() == ExprAST::Kind::NEGATIVE;
+    return ast->getKind() == ASTNode::Kind::NEGATIVE_EXPR;
 }
 
 ExprAST* NegativeExprAST::getTerm() const {
     return term;
 }
 
-ExprAST* NegativeExprAST::clone() const {
+NegativeExprAST* NegativeExprAST::clone() const {
     return new NegativeExprAST(*this);
 }
 

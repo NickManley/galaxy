@@ -29,15 +29,17 @@ enum class TokenType {
     NUMBER,     // Number
     PAREN,      // Parenthesis
     IDENT,      // Identifier
+    KEYWORD     // Keyword
 };
 
 static const std::map<const TokenType, const std::string> TokenTypeStr = {
-    { TokenType::END_FILE, "END_FILE" },  // End File
-    { TokenType::ERR, "ERR" },            // Error
-    { TokenType::BINOP, "BINOP" },   // Binary Operator
-    { TokenType::NUMBER, "NUMBER" }, // Number
-    { TokenType::PAREN, "PAREN" },   // Parenthesis
-    { TokenType::IDENT, "IDENT" }    // Identifier
+    { TokenType::END_FILE, "END_FILE" },// End File
+    { TokenType::ERR, "ERR" },          // Error
+    { TokenType::BINOP, "BINOP" },      // Binary Operator
+    { TokenType::NUMBER, "NUMBER" },    // Number
+    { TokenType::PAREN, "PAREN" },      // Parenthesis
+    { TokenType::IDENT, "IDENT" },      // Identifier
+    { TokenType::KEYWORD, "KEYWORD" }   // Keyword
 };
 
 static const std::map<const std::string, int> Precedence = {

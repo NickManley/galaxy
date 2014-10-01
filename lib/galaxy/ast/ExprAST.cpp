@@ -18,14 +18,17 @@
 #include "galaxy/ast/ExprAST.h"
 using namespace Galaxy;
 
-ExprAST::ExprAST(const ExprAST::Kind& kind) : kind(kind) { }
+ExprAST::ExprAST() : ASTNode(ASTNode::Kind::EXPR) { }
 
-ExprAST::ExprAST(const ExprAST& orig) : kind(orig.getKind()) { }
+ExprAST::ExprAST(const ASTNode::Kind& kind) : ASTNode(kind) { }
+
+ExprAST::ExprAST(const ExprAST& orig) : ASTNode(orig) { }
 
 ExprAST::~ExprAST() { }
 
-const ExprAST::Kind& ExprAST::getKind() const {
-    return kind;
+bool ExprAST::classof(const ASTNode* node) {
+    return node->getKind() >= ASTNode::Kind::EXPR &&
+           node->getKind() <= ASTNode::Kind::EXPR_LAST;
 }
 
 ExprAST* ExprAST::clone() const {
@@ -33,7 +36,7 @@ ExprAST* ExprAST::clone() const {
 }
 
 std::string ExprAST::toString() const {
-    return "()";
+    return "($)";
 }
 
 void ExprAST::accept(ASTVisitor* visitor) {

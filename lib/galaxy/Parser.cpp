@@ -106,7 +106,7 @@ ExprAST* Parser::parseBinaryExpr(int prec, ExprAST *lhs) {
         }
 
         if (op.getValue() == "="
-                && lhs->getKind() != ExprAST::Kind::VARIABLE) {
+                && lhs->getKind() != ASTNode::Kind::VARIABLE_EXPR) {
             errors.push_back(new ParseError(
                     ParseErrorType::EXPECTED_IDENT_LHS,
                     "Syntax Error (" + lexer->location().toString() +

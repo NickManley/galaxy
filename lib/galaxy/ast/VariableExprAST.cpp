@@ -19,7 +19,7 @@
 using namespace Galaxy;
 
 VariableExprAST::VariableExprAST(const std::string& name)
-    : ExprAST(ExprAST::Kind::VARIABLE), name(name) { }
+    : ExprAST(ASTNode::Kind::VARIABLE_EXPR), name(name) { }
 
 VariableExprAST::VariableExprAST(const VariableExprAST& orig)
     : ExprAST(orig), name(orig.name) { }
@@ -27,14 +27,14 @@ VariableExprAST::VariableExprAST(const VariableExprAST& orig)
 VariableExprAST::~VariableExprAST() { }
 
 bool VariableExprAST::classof(const ExprAST* ast) {
-    return ast->getKind() == ExprAST::Kind::VARIABLE;
+    return ast->getKind() == ASTNode::Kind::VARIABLE_EXPR;
 }
 
 const std::string& VariableExprAST::getName() const {
     return this->name;
 }
 
-ExprAST* VariableExprAST::clone() const {
+VariableExprAST* VariableExprAST::clone() const {
     return new VariableExprAST(*this);
 }
 

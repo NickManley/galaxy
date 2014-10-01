@@ -26,6 +26,8 @@
 
 namespace Galaxy {
 
+class ASTNode;
+class ExprAST;
 class BinaryExprAST;
 class FunctionAST;
 class NegativeExprAST;
@@ -55,7 +57,7 @@ public:
     llvm::Function* generateFunction(FunctionAST *func);
     llvm::Function* generateFunction(PrototypeAST *proto);
 
-    void visit(const ExprAST& ast);
+    void visit(const ASTNode& ast);
     void visit(const BinaryExprAST& ast);
     void visit(const FunctionAST& ast);
     void visit(const NegativeExprAST& ast);

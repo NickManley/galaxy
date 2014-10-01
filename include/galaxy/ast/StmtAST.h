@@ -1,4 +1,4 @@
-//===-- include/galaxy/ast/NegativeExprAST.h ---------------*- C++ -*-===//
+//===-- include/galaxy/ast/StmtAST.h - class declaration ---*- C++ -*-===//
 //
 //                     The Galaxy Programming Language
 //
@@ -8,41 +8,38 @@
 //===-----------------------------------------------------------------===//
 ///
 /// \file
-/// \brief This file contains the declaration of the
-/// NegativeExprAST class.
+/// \brief This file contains the declaration of the StmtAST class.
 /// \author Nicholas E. Manley
 /// \copyright ISC License
 ///
 //===-----------------------------------------------------------------===//
 
-#ifndef GALAXY_AST_NEGATIVEEXPRAST_H
-#define GALAXY_AST_NEGATIVEEXPRAST_H
-#include "galaxy/ast/ExprAST.h"
+#ifndef GALAXY_AST_STMTAST_H
+#define GALAXY_AST_STMTAST_H
+#include "ASTNode.h"
 
 namespace Galaxy {
 
-class NegativeExprAST : public ExprAST {
-protected:
-    ExprAST *term;
-
+class StmtAST : public ASTNode {
 public:
     /// \brief Constructor.
-    explicit NegativeExprAST(ExprAST *term);
+    explicit StmtAST();
+    
+    /// \brief Constructor with KIND.
+    explicit StmtAST(const ASTNode::Kind& kind);
 
     /// \brief Copy constructor.
-    NegativeExprAST(const NegativeExprAST& orig);
+    StmtAST(const StmtAST& orig);
 
     /// \brief Destructor.
-    virtual ~NegativeExprAST();
+    virtual ~StmtAST();
 
-    static bool classof(const ExprAST* ast);
-
-    ExprAST* getTerm() const;
+    static bool classof(const ASTNode* node);
 
     /// \brief Clone method.
     /// \details caller is responsible for calling
     /// delete on returned pointer.
-    virtual NegativeExprAST* clone() const;
+    virtual StmtAST* clone() const;
 
     /// \brief Convert to std::string.
     virtual std::string toString() const;
@@ -50,8 +47,10 @@ public:
     /// \brief Method to accept visitors.
     virtual void accept(ASTVisitor* visitor);
 
-}; // END class NegativeExprAST
+}; // END class StmtAST
+
+llvm::raw_ostream& operator<<(llvm::raw_ostream& out, const StmtAST& stmt);
 
 } // END namespace Galaxy
 
-#endif // END ifndef GALAXY_AST_NEGATIVEEXPRAST_H
+#endif // END ifndef GALAXY_AST_STMTAST_H
