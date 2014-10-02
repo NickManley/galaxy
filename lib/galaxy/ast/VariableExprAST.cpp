@@ -26,8 +26,8 @@ VariableExprAST::VariableExprAST(const VariableExprAST& orig)
 
 VariableExprAST::~VariableExprAST() { }
 
-bool VariableExprAST::classof(const ExprAST* ast) {
-    return ast->getKind() == ASTNode::Kind::VARIABLE_EXPR;
+bool VariableExprAST::classof(const ASTNode* node) {
+    return node->getKind() == ASTNode::Kind::VARIABLE_EXPR;
 }
 
 const std::string& VariableExprAST::getName() const {

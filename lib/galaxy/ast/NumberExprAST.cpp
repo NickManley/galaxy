@@ -26,8 +26,8 @@ NumberExprAST::NumberExprAST(const NumberExprAST& orig)
 
 NumberExprAST::~NumberExprAST() { }
 
-bool NumberExprAST::classof(const ExprAST* ast) {
-    return ast->getKind() == ASTNode::Kind::NUMBER_EXPR;
+bool NumberExprAST::classof(const ASTNode* node) {
+    return node->getKind() == ASTNode::Kind::NUMBER_EXPR;
 }
 
 const std::string& NumberExprAST::getValue() const {

@@ -26,8 +26,8 @@ NegativeExprAST::NegativeExprAST(const NegativeExprAST& orig)
 
 NegativeExprAST::~NegativeExprAST() { }
 
-bool NegativeExprAST::classof(const ExprAST* ast) {
-    return ast->getKind() == ASTNode::Kind::NEGATIVE_EXPR;
+bool NegativeExprAST::classof(const ASTNode* node) {
+    return node->getKind() == ASTNode::Kind::NEGATIVE_EXPR;
 }
 
 ExprAST* NegativeExprAST::getTerm() const {

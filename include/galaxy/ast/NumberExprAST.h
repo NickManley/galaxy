@@ -34,7 +34,7 @@ public:
     /// \brief Destructor.
     virtual ~NumberExprAST();
 
-    static bool classof(const ExprAST* ast);
+    static bool classof(const ASTNode* node);
 
     const std::string& getValue() const;
 

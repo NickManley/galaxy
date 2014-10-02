@@ -31,8 +31,8 @@ BinaryExprAST::~BinaryExprAST() {
     delete rhs;
 }
 
-bool BinaryExprAST::classof(const ExprAST* ast) {
-    return ast->getKind() == ASTNode::Kind::BINARY_EXPR;
+bool BinaryExprAST::classof(const ASTNode* node) {
+    return node->getKind() == ASTNode::Kind::BINARY_EXPR;
 }
 
 BinaryExprAST* BinaryExprAST::clone() const {

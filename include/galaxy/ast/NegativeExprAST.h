@@ -35,7 +35,7 @@ public:
     /// \brief Destructor.
     virtual ~NegativeExprAST();
 
-    static bool classof(const ExprAST* ast);
+    static bool classof(const ASTNode* node);
 
     ExprAST* getTerm() const;
 

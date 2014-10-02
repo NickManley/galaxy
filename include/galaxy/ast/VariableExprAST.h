@@ -35,7 +35,7 @@ public:
     /// \brief Destructor.
     virtual ~VariableExprAST();
 
-    static bool classof(const ExprAST* ast);
+    static bool classof(const ASTNode* node);
 
     const std::string& getName() const;
 

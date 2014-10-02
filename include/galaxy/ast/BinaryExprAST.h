@@ -35,7 +35,7 @@ public:
     /// \brief Destructor.
     virtual ~BinaryExprAST();
 
-    static bool classof(const ExprAST* ast);
+    static bool classof(const ASTNode* node);
 
     /// \brief Clone method.
     /// \details caller is responsible for calling
