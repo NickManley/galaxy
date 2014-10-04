@@ -37,8 +37,7 @@ void runREPL() {
         if (input == "exit" || input == "quit") { break; }
         void *result = interpreter.interpret(input);
         if (!result) {
-            Error *err;
-            while ((err = interpreter.popError())) {
+            while (Error *err = interpreter.popError()) {
                 shell.printError(err->getMessage());
                 delete err;
             }

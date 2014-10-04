@@ -22,22 +22,22 @@
 namespace Galaxy {
 
 class ASTVisitor;
-class ExprAST;
+class ASTNode;
 class PrototypeAST;
 
 class FunctionAST {
 protected:
     PrototypeAST *prototype;
-    ExprAST *expr;
+    ASTNode *node;
 public:
     /// \brief Constructor.
     explicit FunctionAST();
 
     /// \brief Constructor.
-    explicit FunctionAST(PrototypeAST *proto, ExprAST *expr);
+    explicit FunctionAST(PrototypeAST *proto, ASTNode *node);
 
     /// \brief Constructor.
-    explicit FunctionAST(ExprAST *expr);
+    explicit FunctionAST(ASTNode *node);
 
     /// \brief Copy constructor.
     FunctionAST(const FunctionAST& orig);
@@ -46,7 +46,7 @@ public:
     virtual ~FunctionAST();
 
     PrototypeAST* getPrototype() const;
-    ExprAST* getExpr() const;
+    ASTNode* getNode() const;
 
     /// \brief Clone method.
     virtual FunctionAST* clone() const;

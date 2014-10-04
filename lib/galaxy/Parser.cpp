@@ -18,6 +18,7 @@
 #include "galaxy/ast/NegativeExprAST.h"
 #include "galaxy/ast/NumberExprAST.h"
 #include "galaxy/ast/VariableExprAST.h"
+#include "galaxy/ast/VarStmtAST.h"
 #include "galaxy/Lexer.h"
 #include "galaxy/Parser.h"
 using namespace Galaxy;
@@ -37,7 +38,12 @@ Parser::~Parser() {
     errors.clear();
 }
 
-ExprAST* Parser::parse() {
+ASTNode* Parser::parse() {
+    Token token = lexer->peek();
+    if (token.getType() == TokenType::KEYWORD) {
+        return parseStmt();
+        //return NULL;
+    }
     return parseExpr();
 }
 
@@ -140,8 +146,54 @@ ExprAST* Parser::parseBinaryExpr(int prec, ExprAST *lhs) {
     return lhs;
 }
 
+StmtAST* Parser::parseStmt() {
+    Token token = lexer->consume();
+    if (token.getValue() == "var") {
+        return parseVarStmt();
+    }
+    addError(ParseErrorType::UNEXPECTED_TOKEN,
+             "Unexpected token at start of statement.");
+    return NULL;
+}
+
+StmtAST* Parser::parseVarStmt() {
+    Token token;
+    std::string name;
+
+    // Parse identifier name.
+    token = lexer->consume();
+    if (token.getType() != TokenType::IDENT) {
+        addError(ParseErrorType::EXPECTED_IDENT_LHS,
+                 "Expected identifier for assignment.");
+        return NULL;
+    }
+    name = token.getValue();
+
+    // Parse assignment operator.
+    token = lexer->consume();
+    if (token.getType() != TokenType::BINOP ||
+        token.getValue() != "=")
+    {
+        addError(ParseErrorType::EXPECTED_BINOP,
+                 "Expected assignment operator.");
+        return NULL;
+    }
+
+    // Parse expression.
+    ExprAST* expr = parseExpr();
+    if (!expr) { return NULL;}
+
+    return new VarStmtAST(name, expr);
+}
+
 bool Parser::hasErrors() {
     return errors.size() > 0;
+}
+
+void Parser::addError(ParseErrorType type, const std::string& message) {
+    errors.push_back(new ParseError(type,
+            "Syntax Error (" + lexer->location().toString() + "): " +
+            message));
 }
 
 ParseError* Parser::popError() {

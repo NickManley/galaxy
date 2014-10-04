@@ -24,7 +24,7 @@ class ExprAST : public ASTNode {
 public:
     /// \brief Constructor.
     explicit ExprAST();
-    
+
     /// \brief Constructor with KIND.
     explicit ExprAST(const ASTNode::Kind& kind);
 

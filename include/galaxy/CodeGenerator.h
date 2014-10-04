@@ -34,6 +34,8 @@ class NegativeExprAST;
 class NumberExprAST;
 class PrototypeAST;
 class VariableExprAST;
+class StmtAST;
+class VarStmtAST;
 
 class CodeGenerator : public ASTVisitor {
 public:
@@ -53,7 +55,7 @@ public:
     virtual ~CodeGenerator();
 
     llvm::Value* generateValue(ExprAST *expr);
-    llvm::Function* generateFunction(ExprAST *expr);
+    llvm::Function* generateFunction(ASTNode *node);
     llvm::Function* generateFunction(FunctionAST *func);
     llvm::Function* generateFunction(PrototypeAST *proto);
 
@@ -64,7 +66,9 @@ public:
     void visit(const NumberExprAST& ast);
     void visit(const PrototypeAST& ast);
     void visit(const VariableExprAST& ast);
+    void visit(const VarStmtAST& ast);
 
+    void addError(CodeGenErrorType type, const std::string& message);
     CodeGenError* popError();
 };
 

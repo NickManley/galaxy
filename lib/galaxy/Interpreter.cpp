@@ -51,7 +51,7 @@ Interpreter::~Interpreter() {
 void* Interpreter::interpret(const std::string& input) {
     // Parse input
     Parser parser(input);
-    ExprAST *parseTree = parser.parse();
+    ASTNode *parseTree = parser.parse();
     if (!parseTree) {
         ParseError *err;
         while ((err = parser.popError())) {
@@ -63,8 +63,7 @@ void* Interpreter::interpret(const std::string& input) {
     llvm::Function *func = codegen.generateFunction(parseTree);
     delete parseTree;
     if (!func) {
-        CodeGenError *err;
-        while ((err = codegen.popError())) {
+        while (CodeGenError *err = codegen.popError()) {
             errors.push_back(err);
         }
         return NULL;

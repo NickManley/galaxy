@@ -16,14 +16,14 @@
 
 #ifndef GALAXY_PARSER_H
 #define GALAXY_PARSER_H
-#include "galaxy/ast/BinaryExprAST.h"
-#include "galaxy/ast/NegativeExprAST.h"
-#include "galaxy/ast/NumberExprAST.h"
 #include "galaxy/ParseError.h"
 #include <list>
 
 namespace Galaxy {
 
+class ASTNode;
+class ExprAST;
+class StmtAST;
 class Lexer;
 class Token;
 
@@ -44,8 +44,8 @@ public:
     /// \brief Parse source.
     /// \details The caller is responsible for calling
     /// delete on the returned pointer.
-    /// \returns ExprAST pointer.
-    ExprAST* parse();
+    /// \returns ASTNode pointer.
+    ASTNode* parse();
 
     /// \brief Parse expression.
     ExprAST* parseExpr();
@@ -62,7 +62,14 @@ public:
     /// \brief Parse binary expression.
     ExprAST* parseBinaryExpr(int prec, ExprAST *lhs);
 
+    /// \brief Parse statement.
+    StmtAST* parseStmt();
+
+    StmtAST* parseVarStmt();
+
     bool hasErrors();
+
+    void addError(ParseErrorType type, const std::string& message);
 
     /// \brief Pop the oldest error from the errors list.
     /// \details Popping is done via FIFO (First in, First out).

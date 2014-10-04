@@ -1,4 +1,4 @@
-//===-- include/galaxy/ast/StmtAST.h - class declaration ---*- C++ -*-===//
+//===-- include/galaxy/ast/VarStmtAST.h --------------------*- C++ -*-===//
 //
 //                     The Galaxy Programming Language
 //
@@ -8,38 +8,44 @@
 //===-----------------------------------------------------------------===//
 ///
 /// \file
-/// \brief This file contains the declaration of the StmtAST class.
+/// \brief This file contains the declaration of the VarStmtAST class.
 /// \author Nicholas E. Manley
 /// \copyright ISC License
 ///
 //===-----------------------------------------------------------------===//
 
-#ifndef GALAXY_AST_STMTAST_H
-#define GALAXY_AST_STMTAST_H
-#include "ASTNode.h"
+#ifndef GALAXY_AST_VARSTMTAST_H
+#define GALAXY_AST_VARSTMTAST_H
+#include "StmtAST.h"
 
 namespace Galaxy {
 
-class StmtAST : public ASTNode {
+class ExprAST;
+
+class VarStmtAST : public StmtAST {
+protected:
+    const std::string name;
+    ExprAST* expr;
+
 public:
     /// \brief Constructor.
-    explicit StmtAST();
-
-    /// \brief Constructor with KIND.
-    explicit StmtAST(const ASTNode::Kind& kind);
+    explicit VarStmtAST(const std::string& name, ExprAST* expr);
 
     /// \brief Copy constructor.
-    StmtAST(const StmtAST& orig);
+    VarStmtAST(const VarStmtAST& orig);
 
     /// \brief Destructor.
-    virtual ~StmtAST();
+    virtual ~VarStmtAST();
 
     static bool classof(const ASTNode* node);
+
+    const std::string& getName() const;
+    ExprAST* getExpr() const;
 
     /// \brief Clone method.
     /// \details caller is responsible for calling
     /// delete on returned pointer.
-    virtual StmtAST* clone() const;
+    virtual VarStmtAST* clone() const;
 
     /// \brief Convert to std::string.
     virtual std::string toString() const;
@@ -47,10 +53,8 @@ public:
     /// \brief Method to accept visitors.
     virtual void accept(ASTVisitor* visitor);
 
-}; // END class StmtAST
-
-llvm::raw_ostream& operator<<(llvm::raw_ostream& out, const StmtAST& stmt);
+}; // END class VarStmtAST
 
 } // END namespace Galaxy
 
-#endif // END ifndef GALAXY_AST_STMTAST_H
+#endif // END ifndef GALAXY_AST_VARSTMTAST_H

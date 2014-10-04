@@ -34,6 +34,7 @@ public:
             VARIABLE_EXPR,
             EXPR_LAST, // Last
         STMT,
+            VAR_STMT,
             STMT_LAST, // Last
         FUNCTION,
         PROTOTYPE,

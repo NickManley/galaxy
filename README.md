@@ -48,5 +48,6 @@ term = number | ident | "(", expr, ")" | "-", term ;
 number = digit , { digit } ;
 ident = alpha , { alpha | digit } ;
 
+definition = "var" , ident , "=" , expr;
 assignment = ident , "=" , expr ;
 ```

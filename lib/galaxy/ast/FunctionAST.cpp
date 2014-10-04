@@ -14,34 +14,34 @@
 ///
 //===-----------------------------------------------------------------===//
 
+#include "galaxy/ast/ASTNode.h"
 #include "galaxy/ast/ASTVisitor.h"
-#include "galaxy/ast/ExprAST.h"
 #include "galaxy/ast/FunctionAST.h"
 #include "galaxy/ast/PrototypeAST.h"
 using namespace Galaxy;
 
 FunctionAST::FunctionAST() { }
 
-FunctionAST::FunctionAST(PrototypeAST *proto, ExprAST *expr)
-        : prototype(proto->clone()), expr(expr->clone()) { }
+FunctionAST::FunctionAST(PrototypeAST *proto, ASTNode *node)
+        : prototype(proto->clone()), node(node->clone()) { }
 
-FunctionAST::FunctionAST(ExprAST *expr)
-        : prototype(new PrototypeAST()), expr(expr->clone()) { }
+FunctionAST::FunctionAST(ASTNode *node)
+        : prototype(new PrototypeAST()), node(node->clone()) { }
 
 FunctionAST::FunctionAST(const FunctionAST& orig)
-        : prototype(orig.prototype->clone()), expr(orig.expr->clone()) { }
+        : prototype(orig.prototype->clone()), node(orig.node->clone()) { }
 
 FunctionAST::~FunctionAST() {
     delete prototype;
-    delete expr;
+    delete node;
 }
 
 PrototypeAST* FunctionAST::getPrototype() const {
     return prototype;
 }
 
-ExprAST* FunctionAST::getExpr() const {
-    return expr;
+ASTNode* FunctionAST::getNode() const {
+    return node;
 }
 
 FunctionAST* FunctionAST::clone() const {
@@ -49,7 +49,7 @@ FunctionAST* FunctionAST::clone() const {
 }
 
 std::string FunctionAST::toString() const {
-    return prototype->toString() + " { " + expr->toString() + " }";
+    return prototype->toString() + " { " + node->toString() + " }";
 }
 
 void FunctionAST::accept(ASTVisitor* visitor) {
