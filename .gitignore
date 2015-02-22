@@ -2,8 +2,12 @@
 # Author: Nicholas E. Manley
 # License: ISC
 
-# IDEs
+# Netbeans
 nbproject/
+
+# Eclipse
+.cproject
+.project
 
 # Autofools
 autom4te.cache/
