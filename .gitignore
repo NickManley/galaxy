@@ -8,6 +8,7 @@ nbproject/
 # Eclipse
 .cproject
 .project
+.settings
 
 # Autofools
 autom4te.cache/
