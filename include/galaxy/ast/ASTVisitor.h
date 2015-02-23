@@ -30,13 +30,13 @@ class VariableExprAST;
 class ASTVisitor {
 public:
     virtual ~ASTVisitor() { }
-    virtual void visit(const ASTNode& ast) = 0;
-    virtual void visit(const BinaryExprAST& ast) = 0;
-    virtual void visit(const FunctionAST& ast) = 0;
-    virtual void visit(const NegativeExprAST& ast) = 0;
-    virtual void visit(const NumberExprAST& ast) = 0;
-    virtual void visit(const PrototypeAST& ast) = 0;
-    virtual void visit(const VariableExprAST& ast) = 0;
+    virtual void* visit(const ASTNode& ast) = 0;
+    virtual void* visit(const BinaryExprAST& ast) = 0;
+    virtual void* visit(const FunctionAST& ast) = 0;
+    virtual void* visit(const NegativeExprAST& ast) = 0;
+    virtual void* visit(const NumberExprAST& ast) = 0;
+    virtual void* visit(const PrototypeAST& ast) = 0;
+    virtual void* visit(const VariableExprAST& ast) = 0;
 
 }; // END class ASTVisitor
 

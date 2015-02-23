@@ -58,8 +58,8 @@ std::string PrototypeAST::toString() const {
     return rso.str();
 }
 
-void PrototypeAST::accept(ASTVisitor* visitor) {
-    visitor->visit(*this);
+void* PrototypeAST::accept(ASTVisitor* visitor) {
+    return visitor->visit(*this);
 }
 
 llvm::raw_ostream& Galaxy::operator<<(llvm::raw_ostream& out,

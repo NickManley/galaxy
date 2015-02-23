@@ -31,7 +31,6 @@ class CodeGenError : public Error {
 protected:
     CodeGenErrorType type;
 public:
-    explicit CodeGenError();
     explicit CodeGenError(const CodeGenErrorType& type);
     explicit CodeGenError(const CodeGenErrorType& type,
     const std::string& message);

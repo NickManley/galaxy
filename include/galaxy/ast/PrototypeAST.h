@@ -53,10 +53,10 @@ public:
     virtual std::string toString() const;
 
     /// \brief Method to accept visitors.
-    virtual void accept(ASTVisitor* visitor);
+    virtual void* accept(ASTVisitor* visitor);
 
     /// \brief Overload stream insertion operator.
-    friend llvm::raw_ostream& Galaxy::operator<<(
+    friend llvm::raw_ostream& operator<<(
             llvm::raw_ostream& out, const PrototypeAST& proto);
 }; // END class PrototypeAST
 

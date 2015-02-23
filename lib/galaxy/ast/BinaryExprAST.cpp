@@ -56,6 +56,6 @@ std::string BinaryExprAST::toString() const {
             + " " + this->rhs->toString() + ")";
 }
 
-void BinaryExprAST::accept(ASTVisitor* visitor) {
-    visitor->visit(*this);
+void* BinaryExprAST::accept(ASTVisitor* visitor) {
+    return visitor->visit(*this);
 }

@@ -42,6 +42,6 @@ std::string NumberExprAST::toString() const {
     return this->value;
 }
 
-void NumberExprAST::accept(ASTVisitor* visitor) {
-    visitor->visit(*this);
+void* NumberExprAST::accept(ASTVisitor* visitor) {
+    return visitor->visit(*this);
 }

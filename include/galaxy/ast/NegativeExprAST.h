@@ -48,7 +48,7 @@ public:
     virtual std::string toString() const;
 
     /// \brief Method to accept visitors.
-    virtual void accept(ASTVisitor* visitor);
+    virtual void* accept(ASTVisitor* visitor);
 
 }; // END class NegativeExprAST
 

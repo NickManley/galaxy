@@ -39,8 +39,8 @@ std::string ExprAST::toString() const {
     return "($)";
 }
 
-void ExprAST::accept(ASTVisitor* visitor) {
-    visitor->visit(*this);
+void* ExprAST::accept(ASTVisitor* visitor) {
+    return visitor->visit(*this);
 }
 
 llvm::raw_ostream& Galaxy::operator<<(llvm::raw_ostream& out,

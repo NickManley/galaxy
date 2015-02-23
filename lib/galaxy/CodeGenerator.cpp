@@ -37,38 +37,35 @@ CodeGenerator::CodeGenerator(const CodeGenerator& orig) { }
 CodeGenerator::~CodeGenerator() { }
 
 llvm::Value* CodeGenerator::generateValue(ExprAST* expr) {
-    expr->accept(this);
-    return (llvm::Value*)result;
+	return (llvm::Value*) expr->accept(this);
 }
 
 llvm::Function* CodeGenerator::generateFunction(ASTNode* node) {
     FunctionAST *f = new FunctionAST(node);
-    result = generateFunction(f);
+    void *result = generateFunction(f);
     delete f;
     return (llvm::Function*)result;
 }
 
 llvm::Function* CodeGenerator::generateFunction(FunctionAST* func) {
-    func->accept(this);
-    return (llvm::Function*)result;
+	return (llvm::Function*) func->accept(this);
 }
 
 llvm::Function* CodeGenerator::generateFunction(PrototypeAST* proto) {
-    proto->accept(this);
-    return (llvm::Function*)result;
+	return (llvm::Function*) proto->accept(this);
 }
 
 // Report error and exit for base class ASTNode.
 // If we got here, then it means the virtual methods
 // for the visitor pattern weren't declared/defined
 // properly.
-void CodeGenerator::visit(const ASTNode& ast) {
+void* CodeGenerator::visit(const ASTNode& ast) {
     llvm::errs() << "FATAL: ASTVisitor not properly declared!\n";
     llvm::errs().flush();
     exit(1);
 }
 
-void CodeGenerator::visit(const BinaryExprAST& ast) {
+void* CodeGenerator::visit(const BinaryExprAST& ast) {
     const unsigned bits = 32;
     llvm::Value *leftValue = generateValue(ast.getLhs());
     llvm::Value *rightValue = generateValue(ast.getRhs());
@@ -78,30 +75,29 @@ void CodeGenerator::visit(const BinaryExprAST& ast) {
     // There is no need to call addError because the previous call to
     // generateValue will have already reported the errors.
     if (!leftValue || !rightValue) {
-        result = NULL;
-        return;
+        return NULL;
     }
 
     if (op == "=") {
         VariableExprAST *var = llvm::cast<VariableExprAST>(ast.getLhs());
         assert(var && globalValues[var->getName()]);
         builder.CreateStore(rightValue, globalValues[var->getName()]);
-        result = rightValue;
+        return rightValue;
     } else if (op == "+") {
-        result = builder.CreateAdd(leftValue, rightValue, "addtmp");
+        return builder.CreateAdd(leftValue, rightValue, "addtmp");
     } else if (op == "-") {
-        result = builder.CreateSub(leftValue, rightValue, "subtmp");
+        return builder.CreateSub(leftValue, rightValue, "subtmp");
     } else if (op == "*") {
-        result = builder.CreateMul(leftValue, rightValue, "multmp");
+        return builder.CreateMul(leftValue, rightValue, "multmp");
     } else if (op == "/") {
-        result = builder.CreateSDiv(leftValue, rightValue, "divtmp");
+        return builder.CreateSDiv(leftValue, rightValue, "divtmp");
     } else {
-        result = llvm::ConstantInt::get(llvm::getGlobalContext(),
+        return llvm::ConstantInt::get(llvm::getGlobalContext(),
             llvm::APInt(bits, 0));
     }
 }
 
-void CodeGenerator::visit(const FunctionAST& ast) {
+void* CodeGenerator::visit(const FunctionAST& ast) {
     PrototypeAST *proto = ast.getPrototype();
     ASTNode *node = ast.getNode();
     llvm::Function *func = generateFunction(proto);
@@ -111,12 +107,12 @@ void CodeGenerator::visit(const FunctionAST& ast) {
 
     if (ExprAST *expr = llvm::dyn_cast<ExprAST>(node)) {
         llvm::Value *val = generateValue(expr);
-        if (!val) { return; }
+        if (!val) { return NULL; }
         builder.CreateRet(val);
     } else if (VarStmtAST *stmt = llvm::dyn_cast<VarStmtAST>(node)) {
-        this->visit(*stmt);
-        if (!result) { return; }
-        builder.CreateRet((llvm::Value*)result);
+    	void *val = this->visit(*stmt);
+        if(!val) { return NULL; }
+        builder.CreateRet((llvm::Value*)val);
     } else {
         auto val = llvm::ConstantInt::get(llvm::getGlobalContext(),
             llvm::APInt(32, 0));
@@ -124,21 +120,21 @@ void CodeGenerator::visit(const FunctionAST& ast) {
     }
 
     llvm::verifyFunction(*func);
-    result = func;
+    return func;
 }
 
-void CodeGenerator::visit(const NegativeExprAST& ast) {
-    result = builder.CreateNeg(generateValue(ast.getTerm()));
+void* CodeGenerator::visit(const NegativeExprAST& ast) {
+    return builder.CreateNeg(generateValue(ast.getTerm()));
 }
 
-void CodeGenerator::visit(const NumberExprAST& ast) {
+void* CodeGenerator::visit(const NumberExprAST& ast) {
     const unsigned bits = 32;
     const uint8_t radix = 10;
-    result = llvm::ConstantInt::get(llvm::getGlobalContext(),
+    return llvm::ConstantInt::get(llvm::getGlobalContext(),
             llvm::APInt(bits, ast.getValue(), radix));
 }
 
-void CodeGenerator::visit(const PrototypeAST& ast) {
+void* CodeGenerator::visit(const PrototypeAST& ast) {
     // Create the argument types
     std::vector<llvm::Type*> arguments(ast.getArgs().size(),
             llvm::Type::getInt32Ty(llvm::getGlobalContext()));
@@ -148,22 +144,21 @@ void CodeGenerator::visit(const PrototypeAST& ast) {
             llvm::Type::getInt32Ty(llvm::getGlobalContext()),
             arguments, false);
     // Create the function itself.
-    result = llvm::Function::Create(funcType,
+    return llvm::Function::Create(funcType,
             llvm::Function::ExternalLinkage, ast.getName(), module);
 }
 
-void CodeGenerator::visit(const VariableExprAST& ast) {
+void* CodeGenerator::visit(const VariableExprAST& ast) {
     llvm::GlobalVariable *val = globalValues[ast.getName()];
     if (!val) {
         addError(CodeGenErrorType::UNDEFINED_VARIABLE,
                  "Undefined variable: " + ast.getName());
-        result = NULL;
-        return;
+        return NULL;
     }
-    result = builder.CreateLoad(val, ast.getName().c_str());
+    return builder.CreateLoad(val, ast.getName().c_str());
 }
 
-void CodeGenerator::visit(const VarStmtAST& ast) {
+void* CodeGenerator::visit(const VarStmtAST& ast) {
     llvm::Value* val = generateValue(ast.getExpr());
     llvm::GlobalVariable* gvar = new llvm::GlobalVariable(*module,
             llvm::Type::getInt32Ty(llvm::getGlobalContext()),
@@ -173,9 +168,9 @@ void CodeGenerator::visit(const VarStmtAST& ast) {
                     llvm::APInt(32, 0, 10)),
             ast.getName().c_str());
 
-    result = val;
     globalValues[ast.getName()] = gvar;
     builder.CreateStore(val, gvar);
+    return val;
 }
 
 void CodeGenerator::addError(CodeGenErrorType type,

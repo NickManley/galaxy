@@ -47,6 +47,6 @@ std::string VarStmtAST::toString() const {
     return this->name;
 }
 
-void VarStmtAST::accept(ASTVisitor* visitor) {
-    visitor->visit(*this);
+void* VarStmtAST::accept(ASTVisitor* visitor) {
+    return visitor->visit(*this);
 }

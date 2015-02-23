@@ -43,7 +43,6 @@ public:
     static llvm::Module* module;
     static std::map<std::string, llvm::GlobalVariable*> globalValues;
     std::list<CodeGenError*> errors;
-    void* result;
 
     /// \brief Constructor.
     explicit CodeGenerator();
@@ -59,14 +58,14 @@ public:
     llvm::Function* generateFunction(FunctionAST *func);
     llvm::Function* generateFunction(PrototypeAST *proto);
 
-    void visit(const ASTNode& ast);
-    void visit(const BinaryExprAST& ast);
-    void visit(const FunctionAST& ast);
-    void visit(const NegativeExprAST& ast);
-    void visit(const NumberExprAST& ast);
-    void visit(const PrototypeAST& ast);
-    void visit(const VariableExprAST& ast);
-    void visit(const VarStmtAST& ast);
+    void* visit(const ASTNode& ast);
+    void* visit(const BinaryExprAST& ast);
+    void* visit(const FunctionAST& ast);
+    void* visit(const NegativeExprAST& ast);
+    void* visit(const NumberExprAST& ast);
+    void* visit(const PrototypeAST& ast);
+    void* visit(const VariableExprAST& ast);
+    void* visit(const VarStmtAST& ast);
 
     void addError(CodeGenErrorType type, const std::string& message);
     CodeGenError* popError();

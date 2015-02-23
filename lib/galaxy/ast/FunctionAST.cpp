@@ -20,8 +20,6 @@
 #include "galaxy/ast/PrototypeAST.h"
 using namespace Galaxy;
 
-FunctionAST::FunctionAST() { }
-
 FunctionAST::FunctionAST(PrototypeAST *proto, ASTNode *node)
         : prototype(proto->clone()), node(node->clone()) { }
 
@@ -52,8 +50,8 @@ std::string FunctionAST::toString() const {
     return prototype->toString() + " { " + node->toString() + " }";
 }
 
-void FunctionAST::accept(ASTVisitor* visitor) {
-    visitor->visit(*this);
+void* FunctionAST::accept(ASTVisitor* visitor) {
+    return visitor->visit(*this);
 }
 
 llvm::raw_ostream& Galaxy::operator<<(llvm::raw_ostream& out,

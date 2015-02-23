@@ -36,8 +36,8 @@ std::string ASTNode::toString() const {
     return "()";
 }
 
-void ASTNode::accept(ASTVisitor* visitor) {
-    visitor->visit(*this);
+void* ASTNode::accept(ASTVisitor* visitor) {
+    return visitor->visit(*this);
 }
 
 llvm::raw_ostream& Galaxy::operator<<(llvm::raw_ostream& out,

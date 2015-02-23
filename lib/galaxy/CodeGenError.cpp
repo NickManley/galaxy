@@ -17,8 +17,6 @@
 #include "galaxy/CodeGenError.h"
 using namespace Galaxy;
 
-CodeGenError::CodeGenError() { }
-
 CodeGenError::CodeGenError(const CodeGenErrorType& type)
         : type(type) { }
 

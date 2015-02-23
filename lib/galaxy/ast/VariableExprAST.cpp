@@ -42,6 +42,6 @@ std::string VariableExprAST::toString() const {
     return this->name;
 }
 
-void VariableExprAST::accept(ASTVisitor* visitor) {
-    visitor->visit(*this);
+void* VariableExprAST::accept(ASTVisitor* visitor) {
+    return visitor->visit(*this);
 }

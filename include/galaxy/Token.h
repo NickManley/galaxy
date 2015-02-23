@@ -82,7 +82,7 @@ public:
     Token& operator=(const Token& orig);
 
     /// \brief Overload stream insertion operator.
-    friend llvm::raw_ostream& Galaxy::operator<<(
+    friend llvm::raw_ostream& operator<<(
         llvm::raw_ostream& out, const Token& token);
 
     /// \returns the string value of the token.

@@ -39,8 +39,8 @@ std::string StmtAST::toString() const {
     return "(_)";
 }
 
-void StmtAST::accept(ASTVisitor* visitor) {
-    visitor->visit(*this);
+void* StmtAST::accept(ASTVisitor* visitor) {
+    return visitor->visit(*this);
 }
 
 llvm::raw_ostream& Galaxy::operator<<(llvm::raw_ostream& out,

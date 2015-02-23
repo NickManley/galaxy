@@ -42,6 +42,6 @@ std::string NegativeExprAST::toString() const {
     return "-" + term->toString();
 }
 
-void NegativeExprAST::accept(ASTVisitor* visitor) {
-    visitor->visit(*this);
+void* NegativeExprAST::accept(ASTVisitor* visitor) {
+    return visitor->visit(*this);
 }
